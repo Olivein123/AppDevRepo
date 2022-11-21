@@ -1,0 +1,13 @@
+INSERT INTO tbl_testingcenter (sitename, siteaddress, contactnumber)
+VALUES ('XY Center','Labangon', 123456789); 
+
+CREATE TABLE tbl_testingcenter (
+id int NOT NULL auto_increment, 
+sitename VARCHAR(30), 
+siteaddress VARCHAR(30), 
+contactnumber int(11),
+PRIMARY KEY (id)
+); 
+
+
+SELECT * FROM tbl_testingcenter; 
