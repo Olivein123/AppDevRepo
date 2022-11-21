@@ -41,7 +41,7 @@ export default function UserAssigns() {
     }
 
     const showNearby = (site: string) => {
-        if (site != "Lapu-lapu") {
+        if (site !== "Lapu-lapu") {
             return 1;
         } else {
 
