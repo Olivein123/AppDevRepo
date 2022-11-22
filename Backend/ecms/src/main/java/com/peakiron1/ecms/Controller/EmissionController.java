@@ -50,16 +50,16 @@ public class EmissionController {
 	//U
 	
 	@PutMapping("/putEmissionSite")
-	public EmissionEntity putEmissionSite(@RequestParam int id, @RequestBody EmissionEntity newEmissionDetails) throws Exception{
-		return emserv.putEmissionSite(id, newEmissionDetails); 
+	public EmissionEntity putEmissionSite(@RequestParam int siteid, @RequestBody EmissionEntity newEmissionDetails) throws Exception{
+		return emserv.putEmissionSite(siteid, newEmissionDetails); 
 	}
 	
 	
 	//D
 	
 	@DeleteMapping("/deleteEmissionSite/{id}")
-	public String deleteEmissionSite(@PathVariable int id) {
-		return emserv.deleteEmissionSite(id);
+	public String deleteEmissionSite(@PathVariable int siteid) {
+		return emserv.deleteEmissionSite(siteid);
 	}
 	
 	

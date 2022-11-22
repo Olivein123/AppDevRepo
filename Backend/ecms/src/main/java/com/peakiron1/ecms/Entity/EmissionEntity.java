@@ -12,27 +12,27 @@ public class EmissionEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 
+	private int siteid; 
 	private String sitename; 
 	private String siteaddress; 
 	private int contactnumber;
 	
 	public EmissionEntity() {}
 
-	public EmissionEntity(int id, String sitename, String siteaddress, int contactnumber) {
+	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber) {
 		super();
-		this.id = id;
+		this.siteid = siteid;
 		this.sitename = sitename;
 		this.siteaddress = siteaddress;
 		this.contactnumber = contactnumber;
 	}
 
-	public int getId() {
-		return id;
+	public int getSiteid() {
+		return siteid;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setSiteid(int siteid) {
+		this.siteid = siteid;
 	}
 
 	public String getSitename() {
@@ -58,6 +58,8 @@ public class EmissionEntity {
 	public void setContactnumber(int contactnumber) {
 		this.contactnumber = contactnumber;
 	}
+
+
 
 
 	

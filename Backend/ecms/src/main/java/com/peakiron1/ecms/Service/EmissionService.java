@@ -36,12 +36,12 @@ public class EmissionService {
 	}
 	
 	
-	public EmissionEntity putEmissionSite(int id, EmissionEntity newEmissionDetails) throws Exception{
+	public EmissionEntity putEmissionSite(int siteid, EmissionEntity newEmissionDetails) throws Exception{
 		
 		EmissionEntity emsite = new EmissionEntity(); 
 		
 		try {
-			emsite = emrep.findById(id).get();
+			emsite = emrep.findById(siteid).get();
 			
 			emsite.setSitename(newEmissionDetails.getSitename());
 			emsite.setSiteaddress(newEmissionDetails.getSiteaddress());
@@ -49,18 +49,18 @@ public class EmissionService {
 			
 			return emrep.save(emsite); 
 		}catch(NoSuchElementException nex) {
-			throw new Exception("ID Number " + id + " does not exist!"); 
+			throw new Exception("ID Number " + siteid + " does not exist!"); 
 		}
 	}
 	
-	public String deleteEmissionSite(int id) {
+	public String deleteEmissionSite(int siteid) {
 		String msg; 
 		
-		if(emrep.findById(id)!=null) {
-			emrep.deleteById(id);
-			msg = "Site ID Number " + id + " is successfully deleted!";
+		if(emrep.findById(siteid)!=null) {
+			emrep.deleteById(siteid);
+			msg = "Site ID Number " + siteid + " is successfully deleted!";
 		}else {
-			msg = "Site ID Number " + id + " is not found!";
+			msg = "Site ID Number " + siteid + " is not found!";
 		}
 		
 		return msg; 
