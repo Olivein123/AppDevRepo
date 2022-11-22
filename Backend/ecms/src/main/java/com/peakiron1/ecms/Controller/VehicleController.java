@@ -12,33 +12,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.peakiron1.ecms.Entity.VehicleTypeEntity;
-import com.peakiron1.ecms.Service.VehicleTypeService;
+import com.peakiron1.ecms.Entity.VehicleEntity;
+import com.peakiron1.ecms.Service.VehicleService;
 
 @Controller
-@RequestMapping("/type")
-public class VehicleTypeController {
+@RequestMapping("/vehicle")
+public class VehicleController {
 
 	@Autowired
-	VehicleTypeService vtserv;
+	VehicleService vServ;
 	
 	//CREATE
-	@PostMapping("/postVehicleType")
-	public VehicleTypeEntity insertVehicleType(@RequestBody VehicleTypeEntity vtype) {
-		return vtserv.insertVehicleType(vtype);
+	@PostMapping("/postVehicle")
+	public VehicleEntity insertVehicleType(@RequestBody VehicleEntity vehicle) {
+		return vServ.insertVehicle(vehicle);
 	}
 	//READ
-	@GetMapping("/getAllVehicleTypes")
-	public List<VehicleTypeEntity> getAllVehicleTypes(){
-		return vtserv.getAllVehicleTypes();
+	@GetMapping("/getAllVehicles")
+	public List<VehicleEntity> getAllVehicles(){
+		return vServ.getAllVehicles();
 	}
 	//UPDATE
-	@PutMapping("/putVehicleType")
-	public VehicleTypeEntity putVehicleType(@RequestParam int vTypeId, @RequestBody VehicleTypeEntity newType) throws Exception{
-		return vtserv.putType(vTypeId, newType);
+	@PutMapping("/putVehicle")
+	public VehicleEntity putVehicleType(@RequestParam int vehicleId, @RequestBody VehicleEntity newVehicle) throws Exception{
+		return vServ.putVehicle(vehicleId, newVehicle);
 	}
 	//DELETE
 	public String deleteVehicleType(@PathVariable int id) {
-		return vtserv.deleteVehicleType(id);
+		return vServ.deleteVehicle(id);
 	}
 }

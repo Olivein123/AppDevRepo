@@ -13,25 +13,25 @@ import com.peakiron1.ecms.Repository.VehicleTypeRepository;
 public class VehicleTypeService {
 
 	@Autowired
-	VehicleTypeRepository vRepo;
+	VehicleTypeRepository vtRepo;
 	
 	//CREATE
 	public VehicleTypeEntity insertVehicleType(VehicleTypeEntity vtype) {
-		return vRepo.save(vtype);
+		return vtRepo.save(vtype);
 	}
 	
 	//READ All
 	public List<VehicleTypeEntity> getAllVehicleTypes(){
-		return vRepo.findAll();
+		return vtRepo.findAll();
 	}
 	
 	//UPDATE
 	public VehicleTypeEntity putType(int vehicleTypeId, VehicleTypeEntity newType)throws Exception{
 		VehicleTypeEntity vType = new VehicleTypeEntity();
 		try {
-			vType = vRepo.findById(vehicleTypeId).get();
+			vType = vtRepo.findById(vehicleTypeId).get();
 			vType.setName(newType.getName());
-			return vRepo.save(vType);
+			return vtRepo.save(vType);
 		}catch(NoSuchElementException nsee) {
 			throw new Exception("Vehicle Type of Id = " + vehicleTypeId + " does not exist!");
 		}
@@ -40,8 +40,8 @@ public class VehicleTypeService {
 	//DELETE
 	public String deleteVehicleType(int id) {
 		String msg;
-		if(vRepo.findById(id)!=null) {
-			vRepo.deleteById(id);
+		if(vtRepo.findById(id)!=null) {
+			vtRepo.deleteById(id);
 			msg = "Vehicle Type of Id = " + id + " is successfully deleted!";
 		}else {
 			msg = "Vehicle Type of Id = " + id + " is NOT found!";
