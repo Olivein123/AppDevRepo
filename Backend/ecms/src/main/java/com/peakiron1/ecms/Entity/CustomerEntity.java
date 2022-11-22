@@ -1,11 +1,14 @@
 package com.peakiron1.ecms.Entity;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 @Table(name = "tbl_customer")
@@ -21,6 +24,9 @@ public class CustomerEntity {
 	private String contact_num;
 	private String license_num;
 	private String vehicle_id;
+	
+	//@ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+	//Set<EmissionEntity> center; 
 	
 	public CustomerEntity() {}
 	
