@@ -13,16 +13,16 @@ public class VehicleEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String vehicleModel;
-	private String plateNum;
-	private int vehicleTypeId;
+	private String model;
+	private String platenum;
+	private int vehicletypeid;
 	public VehicleEntity() {}
-	public VehicleEntity(int id, String vehicleModel, String plateNum, int vehicleTypeId) {
+	public VehicleEntity(int id, String model, String platenum, int vehicletypeid) {
 		super();
 		this.id = id;
-		this.vehicleModel = vehicleModel;
-		this.plateNum = plateNum;
-		this.vehicleTypeId = vehicleTypeId;
+		this.model = model;
+		this.platenum = platenum;
+		this.vehicletypeid = vehicletypeid;
 	}
 	public int getId() {
 		return id;
@@ -30,27 +30,29 @@ public class VehicleEntity {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getVehicleModel() {
-		return vehicleModel;
+	public String getModel() {
+		return model;
 	}
-	public void setVehicleModel(String vehicleModel) {
-		this.vehicleModel = vehicleModel;
+	public void setModel(String model) {
+		this.model = model;
 	}
-	public String getPlateNum() {
-		return plateNum;
+	public String getPlatenum() {
+		return platenum;
 	}
-	public void setPlateNum(String plateNum) {
-		this.plateNum = plateNum;
+	public void setPlatenum(String platenum) {
+		this.platenum = platenum;
 	}
-	public int getVehicleTypeId() {
-		return vehicleTypeId;
+	public int getVehicletypeid() {
+		return vehicletypeid;
 	}
-	public void setVehicleTypeId(int vehicleTypeId) {
-		this.vehicleTypeId = vehicleTypeId;
+	public void setVehicletypeid(int vehicletypeid) {
+		this.vehicletypeid = vehicletypeid;
 	}
 	@Override
 	public String toString() {
-		return "VehicleEnitity [id=" + id + ", vehicleModel=" + vehicleModel + ", plateNum=" + plateNum
-				+ ", vehicleTypeId=" + vehicleTypeId + "]";
+		return "VehicleEntity [id=" + id + ", model=" + model + ", platenum=" + platenum + ", vehicletypeid="
+				+ vehicletypeid + "]";
 	}
+	
+	
 }
