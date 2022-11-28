@@ -23,7 +23,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import UserAssignMenu from './UserAssignMenu';
+import UserAssignComp from '../Components/UserAssignComp';
 
 const drawerWidth = 240;
 
@@ -215,7 +215,7 @@ export default function PersistentDrawerLeft() {
             </Drawer>
             <Main open={open}>
                 <DrawerHeader />
-                <UserAssignMenu/>
+                <UserAssignComp/>
             </Main>
         </Box>
     );
