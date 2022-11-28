@@ -30,9 +30,9 @@ public class VehicleService {
 		VehicleEntity vehicle = new VehicleEntity();
 		try {
 			vehicle = vRepo.findById(vehicleId).get();
-			vehicle.setVehicleModel(newVehicleDetails.getVehicleModel());
-			vehicle.setPlateNum(newVehicleDetails.getPlateNum());
-			vehicle.setVehicleTypeId(newVehicleDetails.getVehicleTypeId());
+			vehicle.setModel(newVehicleDetails.getModel());
+			vehicle.setPlatenum(newVehicleDetails.getPlatenum());
+			vehicle.setVehicletypeid(newVehicleDetails.getVehicletypeid());
 			return vRepo.save(vehicle);
 		}catch(NoSuchElementException nsee) {
 			throw new Exception("Vehicle of Id = " + vehicleId + " does not exist!");
