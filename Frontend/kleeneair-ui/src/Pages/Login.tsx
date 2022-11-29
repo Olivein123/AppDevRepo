@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -48,7 +49,7 @@ export default function LoginMenu() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://source.unsplash.com/random)',
+                        backgroundImage: 'url(https://unsplash.com/photos/KUqCSTjX4iA)',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -61,6 +62,7 @@ export default function LoginMenu() {
                         sx={{
                             my: 8,
                             mx: 4,
+                            mt: 30, 
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
