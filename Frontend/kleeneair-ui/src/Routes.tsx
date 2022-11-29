@@ -11,10 +11,11 @@ export default function MainRoutes() {
                 <Route path="/" element={<LandingPage/>}/>
                 <Route path="/login" element={<LoginMenu />} />
                 <Route path="/register" element={<RegisterUser/>}/>
-                <Route path="/user-select-site" element={<UserSetSiteMenu />}/>
-
-
+                <Route path="/user-select-site" element={<UserSetSiteMenu />} />
+                
             </Routes>  
+
+
         </div>
         );
 }
@@ -25,4 +26,10 @@ export default function MainRoutes() {
                     <Route path="/login" element={<LoginMenu />} />
                     <Route path="/user-select-site" element={<UserSetSiteMenu />} />
                 </Route>
+
+                <Route path="/menu" element={<SideBar />}>
+                    <Route path="/dashboard" element={<Dashboard/>}/>
+                    <Route path="/settings" element={<Settings/>}/>
+                </Route>
+
  */
