@@ -1,17 +1,16 @@
-import { Button, Link } from "@mui/material";
+import { AppBar, Box, Button, Container, IconButton, Link, Menu, Toolbar, Typography } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import Navigationbar from "../Components/Navigationbar";
+import LandingSplash from "../Components/LandingSplash";
+
 
 function LandingPage() {
     return (
-        
-        <div>
-            <Outlet/>
-            <p>Welcome to the homepage. </p>
-            <Button variant="contained" href="/login">
-                 Sign In               
-            </Button>
-        </div>
-    ); 
+        <><Navigationbar/><LandingSplash /></>
+       
+       
+    );
 
 }
 
