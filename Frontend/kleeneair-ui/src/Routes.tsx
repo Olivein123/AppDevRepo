@@ -1,4 +1,5 @@
 import {Routes, Route} from 'react-router-dom'
+import Dashboard from './Pages/Dash/Dashboard';
 import LandingPage from './Pages/LandingPage';
 import LoginMenu from './Pages/Login';
 import RegisterUser from './Pages/Register';
@@ -12,10 +13,8 @@ export default function MainRoutes() {
                 <Route path="/login" element={<LoginMenu />} />
                 <Route path="/register" element={<RegisterUser/>}/>
                 <Route path="/user-select-site" element={<UserSetSiteMenu />} />
-                
+                <Route path="/dashboard" element={<Dashboard />} />
             </Routes>  
-
-
         </div>
         );
 }
