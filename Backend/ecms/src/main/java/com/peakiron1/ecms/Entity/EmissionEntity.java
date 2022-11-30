@@ -25,22 +25,21 @@ public class EmissionEntity {
 	private int contactnumber;
 	
 	
-	@ManyToMany(cascade= CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(
-			  name = "tbl_testing_center_customers", 
-			  joinColumns = @JoinColumn(name = "siteaddress"), 
-			  inverseJoinColumns = @JoinColumn(name = "id"))
-	Set<CustomerEntity> customer; 
+	@ManyToMany(mappedBy = "sites", fetch = FetchType.LAZY) //mapped by indicates the entityy owner of the relationship, which is the customer entity
+	private Set<CustomerEntity> customers; 
+	
+	@ManyToMany(mappedBy = "adminsites", fetch = FetchType.LAZY)
+	private Set<AdminEntity> admins;
 	
 	public EmissionEntity() {}
 
-	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber, Set<CustomerEntity>customer) {
+	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber) {
 		super();
 		this.siteid = siteid;
 		this.sitename = sitename;
 		this.siteaddress = siteaddress;
 		this.contactnumber = contactnumber;
-		this.customer = customer; 
+
 	}
 
 	public int getSiteid() {
@@ -74,6 +73,10 @@ public class EmissionEntity {
 	public void setContactnumber(int contactnumber) {
 		this.contactnumber = contactnumber;
 	}
+
+
+	
+
 
 
 
