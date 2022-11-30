@@ -1,22 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import EmissionService from "./EmissionService";
 
 
+ class GetEmissionSites extends Component <any, any>{
 
-
-
-
-/*
- class GetEmissionSites extends React.Component<any, any>{
-
- 
-
-}
-
-export default GetEmissionSites; 
- class GetEmissionSites extends React.Component<any, any>{
-
-    constructor(props: any) {
+    constructor(props:string) {
         super(props)
         this.state = {
             sites:[]
@@ -49,13 +37,13 @@ export default GetEmissionSites;
                         <tbody>
                             {
                                 this.state.sites.map(
-                                    (                                    sites: { id: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.Key | null | undefined; sitename: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; contactnumber: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
-                                        <tr key={sites.id}>
-                                            <td>{sites.id}</td>
-                                            <td>{sites.sitename}</td>
-                                            <td>{sites.contactnumber}</td>
-                                        </tr>
-                                    )
+                                    (                                    site: { id: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.Key | null | undefined; sitename: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; contactnumber: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
+                                <tr>
+                                    <td>{site.id}</td>
+                                    <td>{site.sitename}</td>
+                                    <td>{site.contactnumber}</td>
+                                </tr>
+                                )                             
                             }
                         </tbody>
                     </table>
@@ -66,4 +54,5 @@ export default GetEmissionSites;
     }
 
 }
- */
+
+export default GetEmissionSites; 

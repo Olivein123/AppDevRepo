@@ -1,12 +1,15 @@
 import './App.css';
-import SideBar from './Components/SideBar';
+import MainRoutes from './Routes'
+import GetEmissionSites from './Services/GetEmissionSites';
+
 
 function App() {
-  return (
-    <div className="App">
-        <SideBar/>
-    </div>
-  );
+    return(
+        <div className="App">
+            <MainRoutes/>
+        </div> 
+        );
 }
 
 export default App;
+
