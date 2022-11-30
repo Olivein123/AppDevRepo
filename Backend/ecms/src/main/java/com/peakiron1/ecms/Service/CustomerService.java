@@ -35,8 +35,7 @@ public class CustomerService {
 			customer.setFirstname(newCustomer.getFirstname());
 			customer.setMiddlename(newCustomer.getMiddlename());
 			customer.setLastname(newCustomer.getLastname());
-			customer.setAddress(newCustomer.getAddress());
-			customer.setVehicle_id(newCustomer.getVehicle_id());
+			customer.setAddress(newCustomer.getAddress());			
 			
 			//save details
 			return crepo.save(customer);

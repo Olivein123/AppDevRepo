@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -27,13 +28,20 @@ public class CustomerEntity {
 	private String address;
 	private String contact_num;
 	private String license_num;
-	private String vehicle_id;
 
-	private List<VehicleEntity> vehicles;
+	//ONE TO MANY MAPPING, A CUSTOMER CAN HAVE MULTIPLE VEHICLES
+	@OneToMany(targetEntity = VehicleEntity.class,cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
+	@JoinTable(name="customer_vehicles", 
+	joinColumns = {
+			@JoinColumn(name = "customer_entity_id")
+	}, 
+	inverseJoinColumns = {
+			@JoinColumn(name = "vehicles_id")
+	})
+	private Set<VehicleEntity> vehicles;
 	//@ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	//Set<EmissionEntity> center; 
 
-	
 	//MANY TO MANY MAPPING FROM CUSTOMER TO SITES -> RESULTS TO CUSTOMER HAVING MANY SITES
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="customer_sites", 
@@ -46,16 +54,15 @@ public class CustomerEntity {
 	
 	private Set<EmissionEntity> sites; 
 	
-	
 	//used by emissionentity for the many to many relationship
 	@ManyToMany(mappedBy = "customerlist", fetch = FetchType.LAZY)
 	private Set<EmissionEntity> customersitelist; 
 
-	
 	public CustomerEntity() {}
-	
+
 	public CustomerEntity(int id, String firstname, String middlename, String lastname, String address,
-			String contact_num, String license_num, String vehicle_id, Set<EmissionEntity> sites) {
+			String contact_num, String license_num, Set<VehicleEntity> vehicles,
+			Set<EmissionEntity> sites, Set<EmissionEntity> customersitelist) {
 		super();
 		Id = id;
 		this.firstname = firstname;
@@ -64,11 +71,10 @@ public class CustomerEntity {
 		this.address = address;
 		this.contact_num = contact_num;
 		this.license_num = license_num;
-		this.vehicle_id = vehicle_id;
-		this.sites = sites; 
+		this.vehicles = vehicles;
+		this.sites = sites;
+		this.customersitelist = customersitelist;
 	}
-	
-	
 
 	public int getId() {
 		return Id;
@@ -126,14 +132,6 @@ public class CustomerEntity {
 		this.license_num = license_num;
 	}
 
-	public String getVehicle_id() {
-		return vehicle_id;
-	}
-
-	public void setVehicle_id(String vehicle_id) {
-		this.vehicle_id = vehicle_id;
-	}
-
 	public Set<EmissionEntity> getSites() {
 		return sites;
 	}
@@ -141,12 +139,26 @@ public class CustomerEntity {
 	public void setSites(Set<EmissionEntity> sites) {
 		this.sites = sites;
 	}
+	
+	
+
+	public Set<VehicleEntity> getVehicles() {
+		return vehicles;
+	}
+	
+	public void setVehicles(Set<VehicleEntity> vehicles) {
+		this.vehicles = vehicles;
+	}
 
 	@Override
 	public String toString() {
 		return "CustomerEntity [Id=" + Id + ", firstname=" + firstname + ", middlename=" + middlename + ", lastname="
 				+ lastname + ", address=" + address + ", contact_num=" + contact_num + ", license_num=" + license_num
-				+ ", vehicle_id=" + vehicle_id + "]";
+				+ ", vehicles=" + vehicles + ", sites=" + sites + ", customersitelist=" + customersitelist + "]";
 	}
+
+
+
+	
 	
 }
