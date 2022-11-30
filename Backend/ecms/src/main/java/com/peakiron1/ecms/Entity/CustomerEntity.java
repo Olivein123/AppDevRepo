@@ -24,7 +24,7 @@ public class CustomerEntity {
 	private String contact_num;
 	private String license_num;
 	private String vehicle_id;
-	
+	private List<VehicleEntity> vehicles;
 	//@ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	//Set<EmissionEntity> center; 
 	
