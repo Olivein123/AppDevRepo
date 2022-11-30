@@ -25,21 +25,63 @@ public class EmissionEntity {
 	private int contactnumber;
 	
 	
+	//This one is used by CustomerEntity as a child pang mapping. 
 	@ManyToMany(mappedBy = "sites", fetch = FetchType.LAZY) //mapped by indicates the entityy owner of the relationship, which is the customer entity
 	private Set<CustomerEntity> customers; 
-	
+	//This one is used by AdminEntity as a child pang mapping.
 	@ManyToMany(mappedBy = "adminsites", fetch = FetchType.LAZY)
 	private Set<AdminEntity> admins;
 	
+	
+	
+	//MANY TO MANY MAPPING FROM TEST CENTER TO CUSTOMER
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="sites_customer_list", 
+				joinColumns = {
+						@JoinColumn(name = "siteid")
+				}, 
+				inverseJoinColumns = {
+						@JoinColumn(name = "Id")
+				})
+	private Set<CustomerEntity> customerlist; 
+	
+	//MANY TO MANY MAPPING FROM TEST CENTER TO ADMIN
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="sites_admin_list", 
+				joinColumns = {
+						@JoinColumn(name = "siteid")
+				}, 
+				inverseJoinColumns = {
+						@JoinColumn(name = "id")
+				})
+	private Set<AdminEntity> adminlist; 
+	
 	public EmissionEntity() {}
 
-	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber) {
+	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber, Set<CustomerEntity> customerlist, Set<AdminEntity> adminlist) {
 		super();
 		this.siteid = siteid;
 		this.sitename = sitename;
 		this.siteaddress = siteaddress;
 		this.contactnumber = contactnumber;
+		this.customerlist = customerlist; 
+		this.adminlist = adminlist; 
+	}
 
+	public Set<AdminEntity> getAdminlist() {
+		return adminlist;
+	}
+
+	public void setAdminlist(Set<AdminEntity> adminlist) {
+		this.adminlist = adminlist;
+	}
+
+	public Set<CustomerEntity> getCustomerlist() {
+		return customerlist;
+	}
+
+	public void setCustomerlist(Set<CustomerEntity> customerlist) {
+		this.customerlist = customerlist;
 	}
 
 	public int getSiteid() {

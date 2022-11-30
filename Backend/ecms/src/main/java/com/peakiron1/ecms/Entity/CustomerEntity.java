@@ -29,6 +29,7 @@ public class CustomerEntity {
 	private String license_num;
 	private String vehicle_id;
 	
+	//MANY TO MANY MAPPING FROM CUSTOMER TO SITES -> RESULTS TO CUSTOMER HAVING MANY SITES
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="customer_sites", 
 				joinColumns = {
@@ -40,7 +41,11 @@ public class CustomerEntity {
 	
 	private Set<EmissionEntity> sites; 
 	
-
+	
+	//used by emissionentity for the many to many relationship
+	@ManyToMany(mappedBy = "customerlist", fetch = FetchType.LAZY)
+	private Set<EmissionEntity> customersitelist; 
+	
 	public CustomerEntity() {}
 	
 	public CustomerEntity(int id, String firstname, String middlename, String lastname, String address,

@@ -23,7 +23,7 @@ public class AdminEntity {
 	private String name;
 	private int contactnumber;
 	
-	
+	//MANY TO MANY MAPPING FROM ADMIN TO SITES -> RESULTS TO ADMIN HAVING MANY SITES
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="admin_sites", 
 				joinColumns = {
@@ -34,6 +34,10 @@ public class AdminEntity {
 				})
 	
 	private Set<EmissionEntity> adminsites; 
+	
+	//used by emissionentity for the many to many relationship
+	@ManyToMany(mappedBy = "adminlist", fetch = FetchType.LAZY)
+	private Set<EmissionEntity> adminsitelist; 
 	
 	public AdminEntity(){}
 
