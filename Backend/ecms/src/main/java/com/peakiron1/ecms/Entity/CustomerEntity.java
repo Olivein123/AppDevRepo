@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -30,14 +31,7 @@ public class CustomerEntity {
 	private String license_num;
 
 	//ONE TO MANY MAPPING, A CUSTOMER CAN HAVE MULTIPLE VEHICLES
-	@OneToMany(targetEntity = VehicleEntity.class,cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
-	@JoinTable(name="customer_vehicles", 
-	joinColumns = {
-			@JoinColumn(name = "customer_entity_id")
-	}, 
-	inverseJoinColumns = {
-			@JoinColumn(name = "vehicles_id")
-	})
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<VehicleEntity> vehicles;
 	//@ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	//Set<EmissionEntity> center; 

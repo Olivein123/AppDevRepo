@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,34 +17,33 @@ import javax.persistence.Table;
 public class VehicleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int vehicle_id;
 	
 	private String model;
 	private String plate_num;
 	private int vehicle_type_id;
-	
+	 
 	@ManyToOne
-	@JoinColumn(name = "customer_id", referencedColumnName = "id",nullable = false)
+	@JoinColumn(name = "id")
 	CustomerEntity customer;
 	
 	public VehicleEntity() {}
 	
 	
-	public VehicleEntity(int id, String model, String platenum, int vehicletypeid, CustomerEntity customer) {
+	public VehicleEntity(int vehicle_id, String model, String platenum, int vehicletypeid) {
 		super();
-		this.id = id;
+		this.vehicle_id = vehicle_id;
 		this.model = model;
 		this.plate_num = platenum;
 		this.vehicle_type_id = vehicletypeid;
-		this.customer = customer;
 	}
 
 
 	public int getId() {
-		return id;
+		return vehicle_id;
 	}
 	public void setId(int id) {
-		this.id = id;
+		this.vehicle_id = id;
 	}
 	public String getModel() {
 		return model;
@@ -76,8 +76,8 @@ public class VehicleEntity {
 
 	@Override
 	public String toString() {
-		return "VehicleEntity [id=" + id + ", model=" + model + ", plate_num=" + plate_num + ", vehicle_type_id="
-				+ vehicle_type_id + ", customer=" + customer + "]";
+		return "VehicleEntity [id=" + vehicle_id + ", model=" + model + ", plate_num=" + plate_num + ", vehicle_type_id="
+				+ vehicle_type_id + "]";
 	}
 
 
