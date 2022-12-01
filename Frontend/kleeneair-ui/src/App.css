@@ -43,3 +43,14 @@
     margin-inline: auto; 
     
 }
+
+.centerForm{
+    justify-content: center; 
+    align-items: center; 
+}
+
+
+.nightMode{
+    color: white; 
+    background-color: antiquewhite; 
+}

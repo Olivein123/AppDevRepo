@@ -1,10 +1,12 @@
-import { Button } from "@mui/material";
+import DefaultNavigationBar from "../Components/NavigationBarComp/DefaultNavigationBar";
+import UserRegistrationComp from "../Components/RegistrationComp/UserRegistrationComp";
 
 
-export default function RegisterUser() {
+export default function RegisterMenu() {
     return (
-        <div>
-            <p>Registration</p>
-        <Button href="/login">Sign In</Button>
-       </div>);
+        <>
+        <DefaultNavigationBar>
+            <UserRegistrationComp/>
+            </DefaultNavigationBar></>
+        );
 }

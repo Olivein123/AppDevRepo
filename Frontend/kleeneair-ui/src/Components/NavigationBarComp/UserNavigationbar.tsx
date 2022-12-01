@@ -169,7 +169,7 @@ export default function UserNavigationbar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton>
+                        <ListItemButton href="/user-appointments">
                             <ListItemIcon>
                                 <BookOnlineIcon />
                             </ListItemIcon>
