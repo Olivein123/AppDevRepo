@@ -50,7 +50,7 @@ export default function UserAssigns() {
         }
     }
     return (
-        <Container>
+        <Container maxWidth={false}>
             <Paper elevation={3} style={paperStyle}>
                 <Typography variant="h4">Welcome User</Typography>
                 <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >

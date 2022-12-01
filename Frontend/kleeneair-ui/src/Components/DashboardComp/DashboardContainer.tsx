@@ -12,8 +12,9 @@ const CardList: CardInformation[] = [
     { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
     { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
     { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
     { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' }
+
+
 ]
 
 
@@ -22,11 +23,7 @@ export default function DashboardContainer() {
     
 
     return (
-        <><Container>
-            <Typography align="left" variant="h5" sx={{ mt: 5, mb: -5, ml: 5 }}>Dashboard</Typography>
-        </Container>
-
-            <ContentContainer>                
+        <ContentContainer>                
                 <Widgets title="Scheduled Appointment">
                     <AppointmentList />
                 </Widgets>
@@ -37,15 +34,15 @@ export default function DashboardContainer() {
 
             <Divider variant="middle" />
             
-                <Typography variant="h4" sx={{ mb: -5, mt: 5 }}>Nearby Testing Centers</Typography>
+                <Typography variant="h6" sx={{ mb: -6, mt: 5 }}>Nearby Testing Centers</Typography>
                 <Widgets title="">                    
-                    <Box component="form" sx={{ m: 5 }} noValidate autoComplete="off">
+                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off">
                         {CardList.map((item, i) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}><DashboardCardList key={i} sitename={item.sitename} image={item.image} address={item.address} alttext={item.alttext} /></Grid>
                         )}
                     </Box>
                 </Widgets>
 
-        </ContentContainer></>
+        </ContentContainer>
         
 
 

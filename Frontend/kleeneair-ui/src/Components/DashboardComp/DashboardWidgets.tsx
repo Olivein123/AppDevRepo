@@ -10,13 +10,11 @@ type WidgetProps = {
 
 export default function Widgets(props:WidgetProps) {
     
-    const paperWidget2 = { padding: '50px 20px', margin: "40px", justifyContent: "left", display: "inline-block" }
 
     return (
         <Grid sx={{ display: 'inline-block' }}>
-            
-            <Typography align="left" variant="h6" sx={{ height: '50px', mb: -5, ml: 5 }}>{props.title}</Typography>
-                <Paper elevation={2} style={paperWidget2}>
+            <Typography align="left" variant="h6" sx={{height: '50px', mb: -2, ml: 5 }}>{props.title}</Typography>
+            <Paper elevation={1} sx={{display:'inline-block', p: 2, m: 2} }>
                     {props.children}
                 </Paper>
             
