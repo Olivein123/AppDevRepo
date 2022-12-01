@@ -5,7 +5,7 @@ type ContainerProps = {
 }
 
 export default function ContentContainer(props:ContainerProps) {
-    const paperStyle = { width:'100%', padding: '65px 50px', margin: "40px", justifyContent: "space-evenly", display: "inline-block" }
+    const paperStyle = { padding: '25px' , margin:'40px'}
 
     return (
         <Container>
