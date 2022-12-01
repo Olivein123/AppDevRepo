@@ -27,6 +27,7 @@ function Copyright(props: any) {
     );
 }
 
+
 const theme = createTheme();
 
 export default function LoginMenu() {
@@ -104,7 +105,7 @@ export default function LoginMenu() {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                href="/dashboard"
+                                href="/user-dashboard"
                             >
                                 Sign In
                             </Button>

@@ -24,9 +24,9 @@ export default function Navigationbar() {
         <AppBar position="static" sx={{ background: '#1B2845' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-
+                    
                     <img src="./Images/logo.png" style={{ height: 60, width: 60 }} />
-                    <Typography
+                    <Typography 
                         variant="h6" sx={{ mt: 2 }} noWrap component="div" align="left"
                     >
                         Kleene Air
@@ -34,7 +34,7 @@ export default function Navigationbar() {
                             Cleaner Air, Cleaner World
                         </Typography>
                     </Typography>
-
+                    
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
