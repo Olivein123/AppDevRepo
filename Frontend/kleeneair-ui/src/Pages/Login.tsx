@@ -27,7 +27,13 @@ function Copyright(props: any) {
     );
 }
 
+
 const theme = createTheme();
+const textTheme = {
+    multilineColor: {
+        color:'white'
+        }
+    }
 
 export default function LoginMenu() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +47,7 @@ export default function LoginMenu() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Grid container component="main" sx={{ height: '100vh' }}>
+            <Grid container component="main" sx={{ height: '100vh', color: 'white'}} >
                 <CssBaseline />
                 <Grid
                     item
@@ -49,7 +55,7 @@ export default function LoginMenu() {
                     sm={4}
                     md={7}
                     sx={{
-                        backgroundImage: 'url(https://unsplash.com/photos/KUqCSTjX4iA)',
+                        backgroundImage: 'url("/Images/splashscreen1.png")',
                         backgroundRepeat: 'no-repeat',
                         backgroundColor: (t) =>
                             t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -57,7 +63,7 @@ export default function LoginMenu() {
                         backgroundPosition: 'center',
                     }}
                 />
-                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+                <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ background: 'white' } }>
                     <Box
                         sx={{
                             my: 8,
@@ -66,6 +72,8 @@ export default function LoginMenu() {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
+                            color: 'white'
+                            
                         }}
                     >
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -74,7 +82,7 @@ export default function LoginMenu() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+                        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1}}>
                             <TextField
                                 margin="normal"
                                 required
@@ -84,6 +92,7 @@ export default function LoginMenu() {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                
                             />
                             <TextField
                                 margin="normal"
@@ -95,22 +104,18 @@ export default function LoginMenu() {
                                 id="password"
                                 autoComplete="current-password"
                             />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
-                            />
                             <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
-                                href="/dashboard"
+                                href="/user-dashboard"
                             >
                                 Sign In
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="/" variant="body2">
+                                    <Link href="/" variant="body2" sx={{ml:-1}} >
                                         {"Return to the home page?"}
                                     </Link>
                                 </Grid>
@@ -124,7 +129,7 @@ export default function LoginMenu() {
                         </Box>
                     </Box>
                 </Grid>
-            </Grid>
+                </Grid>
         </ThemeProvider>
     );
 }

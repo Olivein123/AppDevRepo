@@ -1,8 +1,9 @@
 import {Routes, Route} from 'react-router-dom'
-import Dashboard from './Pages/Dash/Dashboard';
 import LandingPage from './Pages/LandingPage';
 import LoginMenu from './Pages/Login';
 import RegisterUser from './Pages/Register';
+import UserAppointmentMenu from './Pages/UserAppointment';
+import UserDashboard from './Pages/UserDashboard';
 import UserSetSiteMenu from './Pages/UserSetSiteMenu';
 
 export default function MainRoutes() {
@@ -13,7 +14,8 @@ export default function MainRoutes() {
                 <Route path="/login" element={<LoginMenu />} />
                 <Route path="/register" element={<RegisterUser/>}/>
                 <Route path="/user-select-site" element={<UserSetSiteMenu />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/user-dashboard" element={<UserDashboard />} />
+                <Route path="/user-appointments" element={<UserAppointmentMenu />}/>
             </Routes>  
         </div>
         );

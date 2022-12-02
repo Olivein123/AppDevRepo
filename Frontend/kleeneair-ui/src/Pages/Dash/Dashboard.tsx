@@ -97,7 +97,7 @@ function DashboardContent() {
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+              <AppBar position="absolute" open={open} sx={{ background: '#1B2845' }}>
           <Toolbar
             sx={{
               pr: '24px', // keep right padding when drawer closed
@@ -114,16 +114,14 @@ function DashboardContent() {
               }}
             >
               <MenuIcon />
+           
             </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
+                      <Typography variant="h6" sx={{ mt: 2 }} noWrap component="div" align="left">
+                          Kleene Air
+                          <Typography variant="subtitle1" sx={{ mb: 2, mt: -1 }}>
+                              Cleaner Air, Cleaner World
+                          </Typography>
+                      </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
