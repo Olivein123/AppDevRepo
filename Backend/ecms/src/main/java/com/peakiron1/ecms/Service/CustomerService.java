@@ -43,5 +43,17 @@ public class CustomerService {
 			throw new Exception("Customer with ID Number " + id + " does not exist!"); 
 		}
 	}
+	
+	public String deleteCustomer(int id) {
+		String msg;
+		if(crepo.findById(id)!=null) {
+			crepo.deleteById(id);
+			msg = "Customer with ID :" + id + " is successfully deleted";
+		}
+		else {
+			msg = "Customer with ID :" + id + " is not found";
+		}
+		return msg;
+	}
 
 }

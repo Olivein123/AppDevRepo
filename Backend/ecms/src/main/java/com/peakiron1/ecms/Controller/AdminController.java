@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.peakiron1.ecms.Entity.AdminEntity;
 import com.peakiron1.ecms.Service.AdminService;
+import com.peakiron1.ecms.Service.CustomerService;
 
 @RestController
 @RequestMapping("/admin")
@@ -51,4 +52,5 @@ public class AdminController {
 	public String deleteAdmin(@PathVariable int id) {
 		return aserv.deleteAdmin(id);
 	}
+	
 }
