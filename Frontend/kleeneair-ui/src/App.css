@@ -54,3 +54,20 @@
     color: white; 
     background-color: antiquewhite; 
 }
+
+
+.centerDisplayForm{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: baseline; 
+}
+
+
+.registerInLine {
+    display: flex;
+    justify-content: flex-start; 
+    flex-direction: row;
+    width: min(100%-15px, 840px);
+    margin-inline: auto;
+}
