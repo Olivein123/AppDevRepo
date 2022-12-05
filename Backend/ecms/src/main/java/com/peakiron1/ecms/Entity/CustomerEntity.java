@@ -1,7 +1,6 @@
 package com.peakiron1.ecms.Entity;
-import java.util.List;
-import java.util.Set;
 
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 
@@ -29,6 +27,8 @@ public class CustomerEntity {
 	private String address;
 	private String contact_num;
 	private String license_num;
+	private String username;
+	private String password;
 
 	//ONE TO MANY MAPPING, A CUSTOMER CAN HAVE MULTIPLE VEHICLES
 	@OneToMany(cascade = CascadeType.ALL)
@@ -55,7 +55,7 @@ public class CustomerEntity {
 	public CustomerEntity() {}
 
 	public CustomerEntity(int id, String firstname, String middlename, String lastname, String address,
-			String contact_num, String license_num, Set<VehicleEntity> vehicles,
+			String contact_num, String license_num, String username, String password, Set<VehicleEntity> vehicles,
 			Set<EmissionEntity> sites, Set<EmissionEntity> customersitelist) {
 		super();
 		Id = id;
@@ -65,6 +65,8 @@ public class CustomerEntity {
 		this.address = address;
 		this.contact_num = contact_num;
 		this.license_num = license_num;
+		this.username = username;
+		this.password = password;
 		this.vehicles = vehicles;
 		this.sites = sites;
 		this.customersitelist = customersitelist;
@@ -126,6 +128,30 @@ public class CustomerEntity {
 		this.license_num = license_num;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<VehicleEntity> getVehicles() {
+		return vehicles;
+	}
+
+	public void setVehicles(Set<VehicleEntity> vehicles) {
+		this.vehicles = vehicles;
+	}
+
 	public Set<EmissionEntity> getSites() {
 		return sites;
 	}
@@ -133,26 +159,21 @@ public class CustomerEntity {
 	public void setSites(Set<EmissionEntity> sites) {
 		this.sites = sites;
 	}
-	
-	
 
-	public Set<VehicleEntity> getVehicles() {
-		return vehicles;
+	public Set<EmissionEntity> getCustomersitelist() {
+		return customersitelist;
 	}
-	
-	public void setVehicles(Set<VehicleEntity> vehicles) {
-		this.vehicles = vehicles;
+
+	public void setCustomersitelist(Set<EmissionEntity> customersitelist) {
+		this.customersitelist = customersitelist;
 	}
 
 	@Override
 	public String toString() {
 		return "CustomerEntity [Id=" + Id + ", firstname=" + firstname + ", middlename=" + middlename + ", lastname="
 				+ lastname + ", address=" + address + ", contact_num=" + contact_num + ", license_num=" + license_num
-				+ ", vehicles=" + vehicles + ", sites=" + sites + ", customersitelist=" + customersitelist + "]";
+				+ ", username=" + username + ", password=" + password + ", vehicles=" + vehicles + ", sites=" + sites
+				+ ", customersitelist=" + customersitelist + "]";
 	}
 
-
-
-	
-	
 }
