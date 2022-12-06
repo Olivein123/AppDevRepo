@@ -65,11 +65,13 @@ export default function RegistrationInnerContext() {
             <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
                 <TextField id="lastname" label="Last Name" type="text" variant="outlined" />
             </FormControl>
-                </div>
+            </div>
 
-            <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
+            <div className="registerInLine">
+            <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
                 <TextField id="address" label="Address" type="text" variant="outlined" />
-            </FormControl>
+                    </FormControl>
+                </div>
             
 
             <div className="registerInLine">
