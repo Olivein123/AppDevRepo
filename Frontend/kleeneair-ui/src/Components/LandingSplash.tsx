@@ -34,7 +34,7 @@ export default function LandingSplash() {
                                 <Button href="/register" variant="contained" sx={{ bgcolor: 'darkblue' } }>Get Started</Button>
                             </Grid>
                             <Grid >
-                                <Button variant="contained">About Us</Button>
+                                <Button href="/test" variant="contained">About Us</Button>
                             </Grid>
                         
                     </Grid>
