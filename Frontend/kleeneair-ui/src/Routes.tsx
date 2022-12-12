@@ -1,4 +1,5 @@
 import {Routes, Route} from 'react-router-dom'
+import AboutusPage from './Pages/AboutUs';
 import LandingPage from './Pages/LandingPage';
 import LoginMenu from './Pages/Login';
 import RegisterUser from './Pages/Register';
@@ -17,7 +18,8 @@ export default function MainRoutes() {
                 <Route path="/user-select-site" element={<UserSetSiteMenu />} />
                 <Route path="/user-dashboard" element={<UserDashboard />} />
                 <Route path="/user-appointments" element={<UserAppointmentMenu />} />
-                <Route path="/test" element={<TestAxios/> }/>
+                <Route path="/test" element={<TestAxios />} />
+                <Route path="/about-us" element={<AboutusPage/>}/>
             </Routes>  
         </div>
         );

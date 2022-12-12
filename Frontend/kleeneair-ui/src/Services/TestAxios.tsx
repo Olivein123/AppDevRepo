@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import { Container, Paper, Box, Typography, TextField, MenuItem, Button } from "@mui/material";
+import { Container, Paper, Box, Typography, TextField, MenuItem, Button, Alert } from "@mui/material";
 import CardList from '../Components/DashboardComp/DashboardCardList';
 
 export type EmissionSite = {
@@ -20,6 +20,7 @@ export default function TextApp() {
         const url = 'http://localhost:8080/site/getAllSites';
         axios.get(url).then((response) => {
             setSite(response.data)
+            
         })
     }, []);
         
@@ -35,10 +36,10 @@ export default function TextApp() {
                         </MenuItem>
                         )): null}
             </TextField>
-
+            < Alert severity="success" > Logout successful!</Alert >
 
             {sites ? sites.map((site) => (
-                <CardList key={site.siteid} sitename={site.sitename} image="" address={site.siteaddress} alttext={site.sitename} />
+                <CardList key={site.siteid} sitename={site.sitename} image="/Images/emission-center-img-1.jpg" address={site.siteaddress} alttext={site.sitename} />
                 )) : null}
 
 
