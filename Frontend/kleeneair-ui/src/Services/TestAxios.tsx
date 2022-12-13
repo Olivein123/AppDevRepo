@@ -3,6 +3,18 @@ import { useEffect, useState } from 'react';
 import { Container, Paper, Box, Typography, TextField, MenuItem, Button, Alert } from "@mui/material";
 import CardList from '../Components/DashboardComp/DashboardCardList';
 
+
+export type Customer = {
+    id: number,
+    firstname: string,
+    middlename: string,
+    lastname: string,
+    address: string,
+    contact_num: string,
+    license_num: string,
+    username: string,
+    password: string,
+}
 export type EmissionSite = {
     siteid: number,
     sitename: string,
@@ -15,18 +27,19 @@ export type EmissionSite = {
 
 export default function TextApp() {
     const [sites, setSite] = useState<EmissionSite[] | null>(); 
+    const [users, setUserDetails] = useState<Customer[] | null>();  
 
     useEffect(() => {
-        const url = 'http://localhost:8080/site/getAllSites';
+        const url = 'http://localhost:8080/site/getAllSites'
         axios.get(url).then((response) => {
             setSite(response.data)
-            
         })
     }, []);
         
 
     return (
         <div>
+
             <p>Sites</p>
             <TextField sx={{ mt: 2, width: 250 }} id="filled-select-location" select label="Select" helperText="Select location of available testing centers">
                 {sites ? // "?" -> if naay value ang sites then i-map niya ang sites
@@ -34,15 +47,14 @@ export default function TextApp() {
                         <MenuItem key={site.siteid} value={site.siteid}>
                             {site.sitename}
                         </MenuItem>
-                        )): null}
+                    )) : null}
             </TextField>
-            < Alert severity="success" > Logout successful!</Alert >
 
             {sites ? sites.map((site) => (
                 <CardList key={site.siteid} sitename={site.sitename} image="/Images/emission-center-img-1.jpg" address={site.siteaddress} alttext={site.sitename} />
-                )) : null}
+            )) : null}
 
-
+            
         </div>
         ); 
 }
@@ -50,6 +62,50 @@ export default function TextApp() {
 
 /*
  * 
+ *             <p>Customers</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th >ID</th>
+                        <th>First name</th>
+                        <th>Middle name</th>
+                        <th>Last name</th>
+                        <th>Address</th>
+                        <th>Contact number</th>
+                        <th>License Number</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
+                
+            {users ? 
+                users.map((user) => {
+                    return <tbody>
+                        <tr>
+                            <td key="id">{user.id}</td>
+                            <td key="fname">{user.firstname}</td>
+                            <td key="mname">{user.middlename}</td>
+                            <td key="lname">{user.lastname}</td>
+                            <td key="address">{user.address}</td>
+                            <td key="contact">{user.contact_num}</td>
+                            <td key="license">{user.license_num}</td>
+                            <td key="usern">{user.username}</td>
+                            <td key="pass">{user.password}</td>
+                            </tr>
+                        </tbody>
+                    
+                }): null
+                }</table>
+ * 
+    useEffect(() => {
+        const url = 'http://localhost:8080/site/getAllSites';
+        axios.get(url).then((response) => {
+            setSite(response.data)
+            
+        })
+    }, []);
+
+
                             <MenuItem key={site.siteid} value={site.siteid}>
                                 <p>{site.sitename}</p>
                             </MenuItem>*/
