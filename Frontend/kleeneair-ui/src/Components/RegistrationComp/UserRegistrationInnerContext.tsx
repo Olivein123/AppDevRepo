@@ -14,14 +14,14 @@ interface State {
 
 
 export default function RegistrationInnerContext() {
-    const [newUser, sendRequest, loading, error] = RestAPI(); 
+    const [newUser,sendRequest, loading, error] = RestAPI(); 
 
     const [sucess, setSuccess] = useState(false); 
     const [fname, setFirstname] = useState(""); 
     const [mname, setMiddlename] = useState(""); 
     const [lname, setLastname] = useState(""); 
     const [address, setAddress] = useState(""); 
-    const [contact, setContactNumber] = useState(0); 
+    const [contact, setContactNumber] = useState(63); 
     const [license, setLicenseNumber] = useState("");
     const [user, setUsername] = useState(""); 
     const [pass, setPassword] = useState(""); 
@@ -34,6 +34,7 @@ export default function RegistrationInnerContext() {
     const verifyNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value; 
 
+        //regex for strict number inputs
         if (/^\d+$/.test(value)) {
             setContactNumber(parseInt(value));
         }
@@ -80,10 +81,16 @@ export default function RegistrationInnerContext() {
 
 
     if (error !== "") {
-        return < Alert severity="error" >Error detected on code, check console!</Alert >
+        return <><div>
+                    <Alert severity="error" >Error detected on code, check console!</Alert >
+                    <Button sx={{m:2, display: 'flex'}} href="/register">Back</Button>
+                </div></>
     } else {
         if (sucess !== false) {
-            return <Alert severity="success">Account is created!</Alert>
+            return <><div>
+                <Alert severity="success">Account is created!</Alert> 
+                <Button sx={{m:2, display:'flex'}} href="/login">Login</Button>
+            </div></>
         }
     }
 

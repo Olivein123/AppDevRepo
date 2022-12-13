@@ -40,7 +40,7 @@ export interface IUser {
 export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, boolean, string] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [user, setUser] = useState<IUser>(); 
+    const [target_user, setUser] = useState<IUser>(); 
 
 
     function sendRequest(config: AxiosRequestConfig<any>) {
@@ -57,55 +57,10 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             .finally(() => setLoading(false))
     }
 
-
+    
     //POST
-    /*
     function newUser(iuser: IUser) {
         setLoading(true);
-
-        const body = JSON.stringify(iuser);
-        const origin = window.location.origin; // get the current domain where the script is running
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:8080/customer/postCustomer', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('Origin', origin); // set the origin header to the current domain
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                setUser(response);
-            } else {
-                setError('An error occurred while making the request: ' + xhr.status);
-            }
-            setLoading(false);
-        };
-        xhr.send(body);
-    }*/
-
-
-    function newUser(iuser: IUser) {
-        setLoading(true);
-
-        const params = new URLSearchParams();
-
-        params.append('id', iuser.id.toString());
-        params.append('firstname', iuser.firstname);
-        params.append('middlename', iuser.middlename);
-        params.append('lastname', iuser.lastname);
-        params.append('address', iuser.address);
-        params.append('contact_num', iuser.contact_num.toString());
-        params.append('license_num', iuser.license_num);
-        params.append('username', iuser.username);
-        params.append('password', iuser.password);
-
-        iuser.vehicles.forEach((vehicle: IVehicles) => {
-            params.append('vehicles', JSON.stringify(vehicle));
-        });
-
-        iuser.sites.forEach((site: ISites) => {
-            params.append('sites', JSON.stringify(site));
-        });
-
         const body = JSON.stringify(iuser); 
         const origin = window.location.origin; 
         const config = {
@@ -135,8 +90,9 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
 /*
  * 
  * 
- *         const params = new URLSearchParams();
+ *                 const params = new URLSearchParams();
 
+        params.append('id', iuser.id.toString());
         params.append('firstname', iuser.firstname);
         params.append('middlename', iuser.middlename);
         params.append('lastname', iuser.lastname);
@@ -147,12 +103,13 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
         params.append('password', iuser.password);
 
         iuser.vehicles.forEach((vehicle: IVehicles) => {
-            params.append('vehicles', JSON.stringify(vehicle)); 
-        })
+            params.append('vehicles', JSON.stringify(vehicle));
+        });
 
         iuser.sites.forEach((site: ISites) => {
             params.append('sites', JSON.stringify(site));
-        })
+        });
+
 
 
 

@@ -30,17 +30,59 @@ export default function TextApp() {
     const [users, setUserDetails] = useState<Customer[] | null>();  
 
     useEffect(() => {
-        const url = 'http://localhost:8080/site/getAllSites'
+        const url = 'http://localhost:8080/customer/getAll'
         axios.get(url).then((response) => {
-            setSite(response.data)
+            setUserDetails(response.data)
         })
-    }, []);
+    }, [users]);
         
 
     return (
         <div>
+            <p>Customers</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th >ID</th>
+                        <th>First name</th>
+                        <th>Middle name</th>
+                        <th>Last name</th>
+                        <th>Address</th>
+                        <th>Contact number</th>
+                        <th>License Number</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                    </tr>
+                </thead>
 
-            <p>Sites</p>
+                {users ?
+                    users.map((user) => {
+                        return <tbody>
+                            <tr>
+                                <td key="id">{user.id}</td>
+                                <td key="fname">{user.firstname}</td>
+                                <td key="mname">{user.middlename}</td>
+                                <td key="lname">{user.lastname}</td>
+                                <td key="address">{user.address}</td>
+                                <td key="contact">{user.contact_num}</td>
+                                <td key="license">{user.license_num}</td>
+                                <td key="usern">{user.username}</td>
+                                <td key="pass">{user.password}</td>
+                            </tr>
+                        </tbody>
+
+                    }) : null
+                }</table>
+
+
+            
+        </div>
+        ); 
+}
+
+
+/*
+ *             <p>Sites</p>
             <TextField sx={{ mt: 2, width: 250 }} id="filled-select-location" select label="Select" helperText="Select location of available testing centers">
                 {sites ? // "?" -> if naay value ang sites then i-map niya ang sites
                     sites.map((site) => (
@@ -54,14 +96,7 @@ export default function TextApp() {
                 <CardList key={site.siteid} sitename={site.sitename} image="/Images/emission-center-img-1.jpg" address={site.siteaddress} alttext={site.sitename} />
             )) : null}
 
-            
-        </div>
-        ); 
-}
 
-
-/*
- * 
  *             <p>Customers</p>
             <table>
                 <thead>
