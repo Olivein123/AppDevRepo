@@ -37,7 +37,7 @@ export interface IUser {
 
 
 
-export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, boolean, string] => {
+export const RestAPI = (): [(iuser: IUser) => void,(config: AxiosRequestConfig<any>) => void, boolean, string, IUser | undefined] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [target_user, setUser] = useState<IUser>(); 
@@ -50,6 +50,7 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             .then((response) => {
                 setError('');
                 console.log(response);
+                setUser(response.data);
             })
             .catch((error) => {
                 setError(error.message);
@@ -83,43 +84,6 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             });
     }
 
-    return [newUser,sendRequest,  loading, error]
+    return [newUser, sendRequest,  loading, error, target_user]
 
 }
-
-/*
- * 
- * 
- *                 const params = new URLSearchParams();
-
-        params.append('id', iuser.id.toString());
-        params.append('firstname', iuser.firstname);
-        params.append('middlename', iuser.middlename);
-        params.append('lastname', iuser.lastname);
-        params.append('address', iuser.address);
-        params.append('contact_num', iuser.contact_num.toString());
-        params.append('license_num', iuser.license_num);
-        params.append('username', iuser.username);
-        params.append('password', iuser.password);
-
-        iuser.vehicles.forEach((vehicle: IVehicles) => {
-            params.append('vehicles', JSON.stringify(vehicle));
-        });
-
-        iuser.sites.forEach((site: ISites) => {
-            params.append('sites', JSON.stringify(site));
-        });
-
-
-
-
- *             firstname: iuser.firstname,
-            middlename: iuser.middlename, 
-            lastname: iuser.lastname, 
-            address: iuser.address,
-            contact_num: iuser.contact_num.toString(), 
-            license_num: iuser.license_num,
-            username: iuser.username, 
-            password: iuser.password,
-
- */ 

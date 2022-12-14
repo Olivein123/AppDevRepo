@@ -22,15 +22,26 @@ export type Customer = {
 
 
 export default function AdminDashboard() {
+    const [newUser, sendRequest, loading, error, target_user] = RestAPI();
     const [users, setUserDetails] = useState<Customer[] | null>();
 
+
+    useEffect(() => {
+        sendRequest(
+            {
+                method: 'GET',
+                url: "http://localhost:8080/customer/getAll",
+            }
+        )
+    },[target_user] )
+    /*
     useEffect(() => {
         const url = 'http://localhost:8080/customer/getAll'
         axios.get(url).then((response) => {
             setUserDetails(response.data)
         })
     }, [users]);
-
+    */
 
     return (
         <AdminNavigationBar>
@@ -51,7 +62,7 @@ export default function AdminDashboard() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {users? users.map((user) => (
+                            {Array.isArray(target_user) ? target_user.map((user) => (
                                 <TableRow
                                     key={user.id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

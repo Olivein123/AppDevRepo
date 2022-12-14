@@ -14,7 +14,7 @@ interface State {
 
 
 export default function RegistrationInnerContext() {
-    const [newUser,sendRequest, loading, error] = RestAPI(); 
+    const [newUser, sendRequest, loading, error, target_user] = RestAPI(); 
 
     const [sucess, setSuccess] = useState(false); 
     const [fname, setFirstname] = useState(""); 
