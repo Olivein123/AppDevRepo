@@ -6,6 +6,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect } from 'react';
+import { RestAPI } from '../../Services/restAPI';
 
 function createData(
     testingcenter: string,
@@ -23,30 +25,40 @@ const rows = [
 ];
 
 export default function AppointmentList() {
+    const [newUser, sendRequest, loading, error, target_user, booking] = RestAPI(); 
+    useEffect(() => {
+        sendRequest({
+            method: "GET", 
+            url: "http://localhost:8080/booking/getAllBooking"
+        })
+    },[])
+
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Testing Center</TableCell>
+                        <TableCell>Booking ID</TableCell>
+                        <TableCell align="right">Testing Center</TableCell>
                         <TableCell align="right">Scheduled Dates</TableCell>
-                        <TableCell align="right">Time</TableCell>
+
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
+                    {Array.isArray(booking)?booking.map((booked) => (
                         <TableRow
-                            key={row.testingcenter}
+                            key={booked.bookingid}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {row.testingcenter}
-                            </TableCell>                            
-                            <TableCell align="right">{row.date}</TableCell>
-                            <TableCell align="right">{row.time}</TableCell>
+                                {booked.bookingid}
+                            </TableCell>     
+                            <TableCell align="right">{booked.centername}</TableCell>
+                            <TableCell align="right">{booked.dateAndTime}</TableCell>
 
                         </TableRow>
-                    ))}
+                    )): null}
                 </TableBody>
             </Table>
         </TableContainer>

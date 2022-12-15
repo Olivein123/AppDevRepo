@@ -6,25 +6,8 @@ import AdminNavigationBar from "../Components/NavigationBarComp/AdminNavBar";
 
 import { RestAPI } from "../Services/restAPI";
 
-
-export type Customer = {
-    id: number,
-    firstname: string,
-    middlename: string,
-    lastname: string,
-    address: string,
-    contact_num: string,
-    license_num: string,
-    username: string,
-    password: string,
-}
-
-
-
 export default function AdminDashboard() {
-    const [newUser, sendRequest, loading, error, target_user] = RestAPI();
-    const [users, setUserDetails] = useState<Customer[] | null>();
-
+    const [newUser, sendRequest, loading, error, target_user, booking] = RestAPI();
 
     useEffect(() => {
         sendRequest(
@@ -34,14 +17,6 @@ export default function AdminDashboard() {
             }
         )
     },[target_user] )
-    /*
-    useEffect(() => {
-        const url = 'http://localhost:8080/customer/getAll'
-        axios.get(url).then((response) => {
-            setUserDetails(response.data)
-        })
-    }, [users]);
-    */
 
     return (
         <AdminNavigationBar>

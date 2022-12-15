@@ -35,12 +35,19 @@ export interface IUser {
     sites: ISites[],
 }
 
+export interface Schedule {
+    bookingid: number, 
+    centername: ISites[],
+    dateAndTime: number 
+}
 
 
-export const RestAPI = (): [(iuser: IUser) => void,(config: AxiosRequestConfig<any>) => void, boolean, string, IUser | undefined] => {
+
+export const RestAPI = (): [(iuser: IUser) => void,(config: AxiosRequestConfig<any>) => void, boolean, string, IUser | undefined, Schedule | undefined] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [target_user, setUser] = useState<IUser>(); 
+    const [booking, setBooking] = useState<Schedule>(); 
 
 
     function sendRequest(config: AxiosRequestConfig<any>) {
@@ -51,6 +58,7 @@ export const RestAPI = (): [(iuser: IUser) => void,(config: AxiosRequestConfig<a
                 setError('');
                 console.log(response);
                 setUser(response.data);
+                setBooking(response.data); 
             })
             .catch((error) => {
                 setError(error.message);
@@ -84,6 +92,6 @@ export const RestAPI = (): [(iuser: IUser) => void,(config: AxiosRequestConfig<a
             });
     }
 
-    return [newUser, sendRequest,  loading, error, target_user]
+    return [newUser, sendRequest,  loading, error, target_user, booking]
 
 }
