@@ -36,6 +36,10 @@ public class CustomerEntity {
 	//@ManyToMany(mappedBy = "customer", fetch = FetchType.LAZY)
 	//Set<EmissionEntity> center; 
 
+	//ONE TO MANY MAPPING FOR BOOKINGS
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<BookingEntity> bookings; 
+	
 	//MANY TO MANY MAPPING FROM CUSTOMER TO SITES -> RESULTS TO CUSTOMER HAVING MANY SITES
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="customer_sites", 
@@ -45,7 +49,6 @@ public class CustomerEntity {
 				inverseJoinColumns = {
 						@JoinColumn(name = "siteid")
 				})
-	
 	private Set<EmissionEntity> sites; 
 	
 	//used by emissionentity for the many to many relationship
@@ -56,7 +59,7 @@ public class CustomerEntity {
 
 	public CustomerEntity(int id, String firstname, String middlename, String lastname, String address,
 			String contact_num, String license_num, String username, String password, Set<VehicleEntity> vehicles,
-			Set<EmissionEntity> sites, Set<EmissionEntity> customersitelist) {
+			Set<EmissionEntity> sites, Set<EmissionEntity> customersitelist, Set<BookingEntity> bookings) {
 		super();
 		Id = id;
 		this.firstname = firstname;
@@ -70,8 +73,8 @@ public class CustomerEntity {
 		this.vehicles = vehicles;
 		this.sites = sites;
 		this.customersitelist = customersitelist;
+		this.bookings = bookings; 
 	}
-
 	public int getId() {
 		return Id;
 	}
@@ -166,6 +169,15 @@ public class CustomerEntity {
 
 	public void setCustomersitelist(Set<EmissionEntity> customersitelist) {
 		this.customersitelist = customersitelist;
+	}
+
+
+	public Set<BookingEntity> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(Set<BookingEntity> bookings) {
+		this.bookings = bookings;
 	}
 
 	@Override

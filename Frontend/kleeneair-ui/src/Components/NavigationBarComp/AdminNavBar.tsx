@@ -151,7 +151,7 @@ export default function AdminNavigationBar(props: NavProps) {
                 <List>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/user-dashboard">
+                        <ListItemButton href="/admin-dashboard">
                             <ListItemIcon>
                                 <DashboardIcon />
                             </ListItemIcon>
@@ -160,20 +160,20 @@ export default function AdminNavigationBar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/user-select-site">
+                        <ListItemButton href="/create-site">
                             <ListItemIcon>
                                 <LocationCityIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Sites' />
+                            <ListItemText primary='Create Sites' />
                         </ListItemButton>
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/user-appointments">
+                        <ListItemButton href="/create-schedule">
                             <ListItemIcon>
                                 <BookOnlineIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Appointments' />
+                            <ListItemText primary='Add Schedules' />
                         </ListItemButton>
                     </ListItem>
 

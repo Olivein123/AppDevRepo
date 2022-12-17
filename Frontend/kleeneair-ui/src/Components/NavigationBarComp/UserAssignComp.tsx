@@ -1,83 +1,69 @@
-import { Container, Paper, Box, Typography, TextField, MenuItem, Button } from "@mui/material";
-import React from "react";
-
-const sites = [
-    { name: 'X Center', location: 'Cebu City', },
-    { name: 'Y Center', location: 'Cebu City', },
-    { name: 'XY Center', location: 'Cebu City', },
-    { name: 'XYZ Center', location: 'Lapu-lapu', },
-];
 
 
+import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { RestAPI } from "../../Services/restAPI";
+import DashboardCardList from "../DashboardComp/DashboardCardList";
+import Widgets from "../DashboardComp/DashboardWidgets";
+import ContentContainer from "../DashboardComp/PaperStyleContainer";
+import UserNavigationbar from "./UserNavigationbar";
 
-export default function UserAssigns() {
+export default function UserSetSiteMenu() {
+    const paperStyle = { padding: '250px 20px', margin: "40px" };
+    const widgetPaper = { padding: '10px 20px', margin: "40px" }
 
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites] = RestAPI();
+    const [customerId, setCustomerID] = useState("");
+    const [siteId, setSiteID] = useState("");
 
-    const paperStyle = { padding: '250px 20px', margin: "40px", justifyContent: "space-evenly" }
+    useEffect(() => {
+        sendRequest({
+            method: "GET",
+            url: "http://localhost:8080/site/getAllSites"
+        })
+    }, [])
 
+    const submission = () => {
+        addSiteToUser({
+            customerid: parseInt(customerId),
+            siteid: parseInt(siteId)
+        });
 
-    const [avsites, setAvailableSite] = React.useState('');
-    const [siteloc, setSiteLocation] = React.useState('');
-
-    const setSite = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAvailableSite(event.target.value);
+        console.log("customerid:" + customerId + "siteid: " + siteId);
     }
 
-    const setLoc = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSiteLocation(event.target.value);
-    }
-
-    const submitLocation = (event: React.MouseEvent<HTMLButtonElement>) => {
-
-        if (showNearby(siteloc) === 1) {
-            alert("Unavailable!")
-            setAvailableSite('');
-            setSiteLocation('');
-        } else {
-            alert("Horay!");
-            console.log("Testing Center: " + avsites + "\nLocation: " + siteloc);
-        }
-
-
-    }
-
-    const showNearby = (site: string) => {
-        if (site !== "Lapu-lapu") {
-            return 1;
-        } else {
-
-            return 0;
-        }
-    }
     return (
-        <Container maxWidth={false}>
-            <Paper elevation={3} style={paperStyle}>
-                <Typography variant="h4">Welcome User</Typography>
-                <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                    <TextField sx={{ width: 250, mt: 2 }} id="filled-select-site" select label="Select" value={avsites} onChange={setSite} helperText="Select available testing centers">
-                        {sites.map((option) => (
 
-                            <MenuItem key={option.name} value={option.name}>
-                                {option.name}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                    <br />
-                    <TextField sx={{ mt: 2, width: 250 }} id="filled-select-location" select label="Select" value={siteloc} onChange={setLoc} helperText="Select location of available testing centers">
-                        {sites.map((option) => (
 
-                            <MenuItem key={option.location} value={option.location}>
-                                {option.location}
-                            </MenuItem>
-                        ))}
-                    </TextField>
+        <UserNavigationbar>
 
+            <ContentContainer headings="">
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Widgets title="">
+                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
+                        </Box>
+
+                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Site ID" helperText="Select site ID from below" onChange={(event) => setSiteID(event.target.value)} />
+                        </Box>
+                        <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                    </Widgets>                
+                     <Widgets title="">
+                        {Array.isArray(sites) ? sites.map((site) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
+
+                            <DashboardCardList key={site.siteid} sitename={site.sitename} siteid={site.siteid} image='./Images/emission-center-img-1.jpg' address={site.address} alttext="" />
+                        }</Grid>) : null}
+                     </Widgets>
 
                 </Box>
-                <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submitLocation}>Submit</Button>
-            </Paper>
+            </ContentContainer>
 
-        </Container>
+
+        </UserNavigationbar>
+
 
     );
+
+
 }

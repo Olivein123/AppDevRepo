@@ -3,6 +3,7 @@ package com.peakiron1.ecms.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class EmissionController {
 	EmissionService emserv;  
 	
 	//C
+	@CrossOrigin
 	@PostMapping("/postEmissionSite")
 	public EmissionEntity insertEmissionSite(@RequestBody EmissionEntity site) {
 		return emserv.insertEmissionSite(site); 

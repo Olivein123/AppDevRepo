@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,11 @@ public class EmissionEntity {
 	private String sitename; 
 	private String siteaddress; 
 	private int contactnumber;
+	
+	
+	//ONE TO MANY MAPPING FOR BOOKINGS
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<BookingEntity> bookings; 
 	
 	
 	//This one is used by CustomerEntity as a child pang mapping. 
@@ -58,7 +64,7 @@ public class EmissionEntity {
 	
 	public EmissionEntity() {}
 
-	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber, Set<CustomerEntity> customerlist, Set<AdminEntity> adminlist) {
+	public EmissionEntity(int siteid, String sitename, String siteaddress, int contactnumber, Set<CustomerEntity> customerlist, Set<AdminEntity> adminlist, Set<BookingEntity>bookings) {
 		super();
 		this.siteid = siteid;
 		this.sitename = sitename;
@@ -66,6 +72,7 @@ public class EmissionEntity {
 		this.contactnumber = contactnumber;
 		this.customerlist = customerlist; 
 		this.adminlist = adminlist; 
+		this.bookings = bookings; 
 	}
 
 	public Set<AdminEntity> getAdminlist() {
@@ -114,6 +121,14 @@ public class EmissionEntity {
 
 	public void setContactnumber(int contactnumber) {
 		this.contactnumber = contactnumber;
+	}
+
+	public Set<BookingEntity> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(Set<BookingEntity> bookings) {
+		this.bookings = bookings;
 	}
 
 

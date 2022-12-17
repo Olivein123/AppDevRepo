@@ -8,11 +8,11 @@ import ContentContainer from "./PaperStyleContainer";
 
 
 const CardList: CardInformation[] = [
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
-    { sitename: 'Y Center', image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' }
+    { sitename: 'Y Center', siteid: 23, image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
+    { sitename: 'Y Center', siteid: 23, image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
+    { sitename: 'Y Center', siteid: 23, image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
+    { sitename: 'Y Center', siteid: 23, image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' },
+    { sitename: 'Y Center', siteid: 23, image: './Images/emission-center-img-1.jpg', address: 'Labangon Cebu City', alttext: 'Y center' }
 
 
 ]
@@ -24,7 +24,7 @@ export default function DashboardContainer() {
 
     return (
         <ContentContainer headings="Dashboard">                
-                <Widgets title="Scheduled Appointment">
+                <Widgets title="Scheduled Appointment by Users">
                     <AppointmentList />
                 </Widgets>
 
@@ -37,7 +37,7 @@ export default function DashboardContainer() {
                 <Typography variant="h6" sx={{ mb: -6, mt: 5 }}>Nearby Testing Centers</Typography>
                 <Widgets title="">                    
                     <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off">
-                        {CardList.map((item, i) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}><DashboardCardList key={i} sitename={item.sitename} image={item.image} address={item.address} alttext={item.alttext} /></Grid>
+                    {CardList.map((item, i) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}><DashboardCardList key={i} sitename={item.sitename} siteid={item.siteid}  image={item.image} address={item.address} alttext={item.alttext} /></Grid>
                         )}
                     </Box>
                 </Widgets>

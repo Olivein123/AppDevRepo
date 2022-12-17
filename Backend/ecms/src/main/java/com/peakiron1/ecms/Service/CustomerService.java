@@ -2,16 +2,29 @@ package com.peakiron1.ecms.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.peakiron1.ecms.Entity.BookingEntity;
 import com.peakiron1.ecms.Entity.CustomerEntity;
+import com.peakiron1.ecms.Entity.EmissionEntity;
+import com.peakiron1.ecms.Repository.BookingRepository;
 import com.peakiron1.ecms.Repository.CustomerRepository;
+import com.peakiron1.ecms.Repository.EmissionRepository;
 
 @Service
 public class CustomerService {
 
 	@Autowired
 	CustomerRepository crepo;
+	
+	@Autowired
+	BookingRepository brepo;
+	
+	@Autowired
+	EmissionRepository erepo;
 	
 	public CustomerEntity addCustomer(CustomerEntity customer) { return crepo.save(customer); }
 	
@@ -55,5 +68,29 @@ public class CustomerService {
 		}
 		return msg;
 	}
+	public CustomerEntity addBookingsToSite(int customerId, int bookingId) {
+		BookingEntity booking = new BookingEntity();
+		CustomerEntity customer; 
+		
+		customer = crepo.findById(customerId).get();
+		booking = brepo.findById(bookingId).get();
+
+		customer.getBookings().add(booking);
+		
+		return crepo.save(customer);
+	}
+	
+	public CustomerEntity addCustomersToSite(int customerId, int siteId) {
+		EmissionEntity site = new EmissionEntity();
+		CustomerEntity customer; 
+		
+		customer = crepo.findById(customerId).get();
+		site = erepo.findById(siteId).get();
+
+		customer.getSites().add(site);
+		
+		return crepo.save(customer);
+	}
+	
 
 }
