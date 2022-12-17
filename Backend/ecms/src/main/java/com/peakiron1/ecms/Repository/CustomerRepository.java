@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.peakiron1.ecms.Entity.CustomerEntity;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer>{}
+public interface CustomerRepository extends JpaRepository<CustomerEntity, Integer>{
+	 //CustomerEntity findByBookings(int customerId, int bookingId);
+}
 	

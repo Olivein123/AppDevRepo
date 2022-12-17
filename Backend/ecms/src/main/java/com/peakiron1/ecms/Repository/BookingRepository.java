@@ -8,5 +8,5 @@ import com.peakiron1.ecms.Entity.BookingEntity;
 
 @Repository
 public interface BookingRepository extends JpaRepository<BookingEntity, Integer> {
-
+		
 }

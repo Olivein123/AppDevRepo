@@ -22,7 +22,7 @@ public class BookingEntity {
 	
 	//THERE CAN BE MANY BOOKINGS MADE BY A CUSTOMER
 	@ManyToOne
-	@JoinColumn(name="customerid")
+	@JoinColumn(name="id")
 	CustomerEntity customer;
 	
 	//THERE CAN BE MANY BOOKINGS IN A SITE

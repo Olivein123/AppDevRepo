@@ -40,7 +40,6 @@ public class CustomerEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<BookingEntity> bookings; 
 	
-	
 	//MANY TO MANY MAPPING FROM CUSTOMER TO SITES -> RESULTS TO CUSTOMER HAVING MANY SITES
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinTable(name="customer_sites", 
@@ -76,7 +75,6 @@ public class CustomerEntity {
 		this.customersitelist = customersitelist;
 		this.bookings = bookings; 
 	}
-
 	public int getId() {
 		return Id;
 	}

@@ -40,6 +40,11 @@ public class CustomerController {
 	@DeleteMapping("/deleteCustomer/{id}")
 	public String deleteCustomer(@PathVariable int id) {
 		return custServ.deleteCustomer(id);
-	}	
+	}
+	
+	@PutMapping("/updateBooking")
+	public CustomerEntity addBookingsToSite(@RequestParam int customerId, @RequestParam int bookingId) {
+		return custServ.addBookingsToSite(customerId, bookingId);
+	}
 }
 
