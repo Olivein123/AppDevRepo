@@ -25,22 +25,31 @@ const rows = [
 ];
 
 export default function AppointmentList() {
-    const [newUser, sendRequest, loading, error, target_user, booking] = RestAPI(); 
+    const [newUser, sendRequest, newSite, loading, error, target_user,sites, booking] = RestAPI(); 
+
     useEffect(() => {
         sendRequest({
             method: "GET", 
             url: "http://localhost:8080/booking/getAllBooking"
         })
-    },[])
+    }, [])
 
+    /*
+    useEffect(() => {
+        sendRequest({
+            method: "GET",
+            url: "http://localhost:8080/site/getAllSites"
+        })
+    }, [])*/
+   
 
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Booking ID</TableCell>
-                        <TableCell align="right">Testing Center</TableCell>
+                        <TableCell>Testing Center</TableCell>
+                        <TableCell align="right">Booking ID</TableCell>
                         <TableCell align="right">Scheduled Dates</TableCell>
 
                     </TableRow>
@@ -52,9 +61,9 @@ export default function AppointmentList() {
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {booked.bookingid}
+                                {booked.sitename}
                             </TableCell>     
-                            <TableCell align="right">{booked.centername}</TableCell>
+                            <TableCell align="right">{booked.bookingid}</TableCell>
                             <TableCell align="right">{booked.dateAndTime}</TableCell>
 
                         </TableRow>

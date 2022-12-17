@@ -42,26 +42,6 @@ export default function Navigationbar(props: defaultNavBarProps) {
                     </Typography>
 
 
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'flex', md: 'none' },
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        Kleene Air
-                    </Typography>
-
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: "flex-end" } }}>
                         <Button href="/" sx={{ my: 2, color: 'white', display: 'block' }} > Home </Button>
                         <Button href="/" sx={{ my: 2, color: 'white', display: 'block' }} > Services </Button>

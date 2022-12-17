@@ -72,7 +72,12 @@ export default function LoginMenu() {
                         console.log(usern, passw);
                         console.log("Login successful!");
                         setStatus(true);
-                        window.location.assign('http://localhost:3000/user-dashboard'); 
+                        if (usern !== "admin") {
+                            window.location.assign('http://localhost:3000/user-dashboard');
+                        } else {
+                            window.location.assign('http://localhost:3000/admin-dashboard');
+                        }
+                        
                     } else {
                         console.log('invalid username or password'); 
                         setStatus(false); 

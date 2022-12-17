@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,17 @@ public class BookingEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bookingid; 
 	private LocalDateTime dateAndTime; 
+	
+	
+	//THERE CAN BE MANY BOOKINGS MADE BY A CUSTOMER
+	@ManyToOne
+	@JoinColumn(name="customerid")
+	CustomerEntity customer;
+	
+	//THERE CAN BE MANY BOOKINGS IN A SITE
+	@ManyToOne
+	@JoinColumn(name="siteid")
+	EmissionEntity sites;
 	
 	public BookingEntity() {}
 

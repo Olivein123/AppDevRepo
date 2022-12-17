@@ -14,7 +14,7 @@ interface State {
 
 
 export default function RegistrationInnerContext() {
-    const [newUser, sendRequest, loading, error, target_user, booking] = RestAPI(); 
+    const [newUser, sendRequest, newSite,  loading, error, target_user, sites, booking] = RestAPI(); 
 
     const [sucess, setSuccess] = useState(false); 
     const [fname, setFirstname] = useState(""); 
@@ -53,24 +53,9 @@ export default function RegistrationInnerContext() {
             license_num: license,
             username: user,
             password: pass,
-            vehicles: [
-                {
-                    model: model, 
-                    id: -1,
-                    platenum: platenumber,
-                    vehicletypeid: -1 
-                }
-            ],
-            sites: [
-                {
-                    siteid: -1, 
-                    sitename: "", 
-                    siteaddress: "", 
-                    contactnumber: -1, 
-                    customerlist: [], 
-                    adminlist:[]
-                }
-            ]
+            vehicles: [],
+            bookings: [], 
+            sites: []
         })
         setSuccess(true); 
         console.log(fname, mname, lname, address, contact, license, user, pass); 
@@ -236,4 +221,40 @@ export default function RegistrationInnerContext() {
                             }
                             label="Password"
                         />
+
+
+
+        newUser({
+            id: -1,
+            firstname: fname,
+            middlename: mname,
+            lastname: lname,
+            address: address,
+            contact_num: contact,
+            license_num: license,
+            username: user,
+            password: pass,
+            vehicles: [
+                {
+                    model: model, 
+                    id: -1,
+                    platenum: platenumber,
+                    vehicletypeid: -1 
+                }
+            ],
+            bookings: [
+
+            ], 
+            sites: [
+                {
+                    siteid: -1, 
+                    sitename: "", 
+                    siteaddress: "", 
+                    contactnumber: -1, 
+                    bookings: [],
+                    customerlist: [], 
+                    adminlist:[]
+                }
+            ]
+        })
  */
