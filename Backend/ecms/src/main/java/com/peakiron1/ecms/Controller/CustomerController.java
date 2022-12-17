@@ -46,5 +46,10 @@ public class CustomerController {
 	public CustomerEntity addBookingsToSite(@RequestParam int customerId, @RequestParam int bookingId) {
 		return custServ.addBookingsToSite(customerId, bookingId);
 	}
+	
+	@PutMapping("/updateSites")
+	public CustomerEntity addCustomersToSite(@RequestParam int customerId, @RequestParam int siteId) {
+		return custServ.addCustomersToSite(customerId, siteId);
+	}
 }
 
