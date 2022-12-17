@@ -7,13 +7,13 @@ import AdminNavigationBar from "../Components/NavigationBarComp/AdminNavBar";
 import { RestAPI } from "../Services/restAPI";
 
 export default function AdminDashboard() {
-    const [newUser, sendRequest, newSite, loading, error, target_user, sites, booking] = RestAPI();
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking] = RestAPI();
 
     useEffect(() => {
         sendRequest(
             {
                 method: 'GET',
-                url: "http://localhost:8080/site/getAllSites",
+                url: "http://localhost:8080/customer/getAll"
             }
         )
     },[target_user] )

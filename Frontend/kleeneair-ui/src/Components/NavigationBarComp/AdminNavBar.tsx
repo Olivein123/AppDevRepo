@@ -169,11 +169,11 @@ export default function AdminNavigationBar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/user-appointments">
+                        <ListItemButton href="/create-schedule">
                             <ListItemIcon>
                                 <BookOnlineIcon />
                             </ListItemIcon>
-                            <ListItemText primary='Manage' />
+                            <ListItemText primary='Add Schedules' />
                         </ListItemButton>
                     </ListItem>
 

@@ -39,13 +39,22 @@ export interface IUser {
 
 export interface Schedule {
     bookingid: number, 
-    centername: ISites[],
-    dateAndTime: number 
+    dateAndTime: string
+}
+
+export interface SiteToUser {
+    customerid: number, 
+    siteid: number
+}
+
+export interface ScheduleToSite {
+    customerid: number,
+    bookingid: number
 }
 
 
 
-export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, boolean, string, IUser | undefined, ISites | undefined, ISites | undefined] => {
+export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, (schedule: Schedule) => void, (sitetouser: SiteToUser)=>void, (scheduletosite: ScheduleToSite) => void, boolean, string, IUser | undefined, ISites | undefined, ISites | undefined] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [target_user, setUser] = useState<IUser>(); 
@@ -96,7 +105,7 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             });
     }
 
-    //POST - USER
+    //POST - NEW SITE
     function newSite(isites:ISites) {
         setLoading(true);
         const body = JSON.stringify(isites);
@@ -121,8 +130,69 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             });
     }
 
+    //POST - NEW AVAILABLE SCHEDULE
+
+    function newBookingSchedule(schedule: Schedule) {
+        setLoading(true); 
+        const body = JSON.stringify(schedule);
+        const origin = window.location.origin;
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Origin': origin,
+            }
+        }
+
+        axios
+            .post("http://localhost:8080/booking/addBooking", body, config)
+            .then((response) => {
+                setUser(response.data);
+            })
+            .catch((error) => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+
+    function addSiteToUser(sitetouser: SiteToUser) {
+        setLoading(true);
+        axios.put("http://localhost:8080/customer/updateSites?customerId=", {}, {
+            params: {
+                customerId: sitetouser.customerid, 
+                siteId: sitetouser.siteid
+                }
+            })
+            .then((response) => {
+            })
+            .catch((error) => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setLoading(false); 
+            });
+    }
+
+    function addBookingToSite(scheduletosite: ScheduleToSite) {
+        setLoading(true);
+        axios.put("http://localhost:8080/customer/updateBooking", {}, {
+            params: {
+                customerId: scheduletosite.customerid,
+                bookingId: scheduletosite.bookingid
+            }
+        })
+            .then((response) => {
+            })
+            .catch((error) => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
 
 
-    return [newUser, sendRequest,newSite, loading, error, target_user, sites, booking]
+    return [newUser, sendRequest,newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking]
 
 }
