@@ -17,8 +17,8 @@ public class VehicleEntity {
 	private int vehicle_id;
 	
 	private String model;
-	private String plate_num;
-	private int vehicle_type_id;
+	private String platenum;
+	private String type;
 	 
 	@ManyToOne
 	@JoinColumn(name = "id")
@@ -27,12 +27,12 @@ public class VehicleEntity {
 	public VehicleEntity() {}
 	
 	
-	public VehicleEntity(int vehicle_id, String model, String platenum, int vehicletypeid) {
+	public VehicleEntity(int vehicle_id, String model, String platenum, String type) {
 		super();
 		this.vehicle_id = vehicle_id;
 		this.model = model;
-		this.plate_num = platenum;
-		this.vehicle_type_id = vehicletypeid;
+		this.platenum = platenum;
+		this.type = type;
 	}
 
 
@@ -49,36 +49,24 @@ public class VehicleEntity {
 		this.model = model;
 	}
 	public String getPlatenum() {
-		return plate_num;
+		return platenum;
 	}
 	public void setPlatenum(String platenum) {
-		this.plate_num = platenum;
+		this.platenum = platenum;
 	}
-	public int getVehicletypeid() {
-		return vehicle_type_id;
+	public String getType() {
+		return type;
 	}
-	public void setVehicletypeid(int vehicletypeid) {
-		this.vehicle_type_id = vehicletypeid;
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	public CustomerEntity getCustomer() {
 		return customer;
 	}
 
-
 	public void setCustomer(CustomerEntity customer) {
 		this.customer = customer;
 	}
 
-
-	@Override
-	public String toString() {
-		return "VehicleEntity [id=" + vehicle_id + ", model=" + model + ", plate_num=" + plate_num + ", vehicle_type_id="
-				+ vehicle_type_id + "]";
-	}
-
-
-	
-	
-	
 }

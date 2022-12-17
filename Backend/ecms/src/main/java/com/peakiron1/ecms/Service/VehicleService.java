@@ -25,6 +25,42 @@ public class VehicleService {
 		return vRepo.findAll();
 	}
 	
+	//READBYID
+	public VehicleEntity getVehicleById(int id) {
+		if(vRepo.findById(id)!=null) {
+			return vRepo.findById(id).get();
+		}else {
+			return null;
+		}
+	}
+	
+	//READ BY MODEL
+	public List<VehicleEntity> findByModel(String model){
+		if(vRepo.findByModel(model)!=null) {
+			return vRepo.findByModel(model);
+		}else {
+			return null;
+		}
+	}
+	
+	//READ BY PLATENUMBER
+	public VehicleEntity findByPlatenum(String platenum) {
+		if(vRepo.findByPlatenum(platenum)!=null) {
+			return vRepo.findByPlatenum(platenum);
+		}else {
+			return null;
+		}
+	}
+	
+	//READ BY VEHICLE TYPE
+	public List<VehicleEntity> findByType(String type){
+		if(vRepo.findByType(type)!=null) {
+			return vRepo.findByType(type);
+		}else {
+			return null;
+		}
+	}
+	
 	//UPDATE
 	public VehicleEntity putVehicle(int vehicleId, VehicleEntity newVehicleDetails) throws Exception{
 		VehicleEntity vehicle = new VehicleEntity();
@@ -32,7 +68,7 @@ public class VehicleService {
 			vehicle = vRepo.findById(vehicleId).get();
 			vehicle.setModel(newVehicleDetails.getModel());
 			vehicle.setPlatenum(newVehicleDetails.getPlatenum());
-			vehicle.setVehicletypeid(newVehicleDetails.getVehicletypeid());
+			vehicle.setType(newVehicleDetails.getType());
 			return vRepo.save(vehicle);
 		}catch(NoSuchElementException nsee) {
 			throw new Exception("Vehicle of Id = " + vehicleId + " does not exist!");

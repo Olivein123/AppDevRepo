@@ -34,6 +34,29 @@ public class VehicleController {
 	public List<VehicleEntity> getAllVehicles(){
 		return vServ.getAllVehicles();
 	}
+	
+	//READBYID
+	@GetMapping("/getById")
+	public VehicleEntity getVehicleById(@RequestParam int id) {
+		return vServ.getVehicleById(id);
+	}
+		
+	//READ BY MODEL
+	public List<VehicleEntity> findByModel(@RequestParam String model){
+		return vServ.findByModel(model);
+	}
+		
+	//READ BY PLATENUMBER
+	public VehicleEntity findByPlatenum(@RequestParam String platenum) {
+		return vServ.findByPlatenum(platenum);
+	}
+	
+	@GetMapping("/type")
+	//READ BY VEHICLE TYPE
+	public List<VehicleEntity> findByType(@RequestParam String type){
+		return vServ.findByType(type);
+	}
+	
 	//UPDATE
 	@PutMapping("/putVehicle")
 	public VehicleEntity putVehicle(@RequestParam int vehicleId, @RequestBody VehicleEntity newVehicle) throws Exception{
