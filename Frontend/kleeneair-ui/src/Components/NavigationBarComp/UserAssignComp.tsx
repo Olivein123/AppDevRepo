@@ -4,6 +4,7 @@ import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { RestAPI } from "../../Services/restAPI";
 import DashboardCardList from "../DashboardComp/DashboardCardList";
+import Widgets from "../DashboardComp/DashboardWidgets";
 import ContentContainer from "../DashboardComp/PaperStyleContainer";
 import UserNavigationbar from "./UserNavigationbar";
 
@@ -35,31 +36,27 @@ export default function UserSetSiteMenu() {
 
 
         <UserNavigationbar>
+
             <ContentContainer headings="">
-                <Paper elevation={3} style={paperStyle}>
-                    <Typography variant="h4">Select your Primary Testing Site!</Typography>
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
-                    </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Widgets title="">
+                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
+                        </Box>
 
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Site ID" helperText="Select site ID from below" onChange={(event) => setSiteID(event.target.value)} />
-                    </Box>
-                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
-                </Paper>
-
-
-                <Paper elevation={3} style={widgetPaper}>
-
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off">
+                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Site ID" helperText="Select site ID from below" onChange={(event) => setSiteID(event.target.value)} />
+                        </Box>
+                        <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                    </Widgets>                
+                     <Widgets title="">
                         {Array.isArray(sites) ? sites.map((site) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
 
                             <DashboardCardList key={site.siteid} sitename={site.sitename} siteid={site.siteid} image='./Images/emission-center-img-1.jpg' address={site.address} alttext="" />
                         }</Grid>) : null}
-                    </Box>
-                </Paper>
+                     </Widgets>
 
-
+                </Box>
             </ContentContainer>
 
 

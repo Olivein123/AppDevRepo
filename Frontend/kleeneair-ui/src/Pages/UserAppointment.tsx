@@ -35,8 +35,9 @@ export default function UserAppointmentMenu() {
             
 
             <UserNavigationbar>
-            <ContentContainer headings="">
-                <Widgets title="Available Dates for Booking">
+            <ContentContainer headings="Book an Appointment">
+                <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+                <Widgets title="Select a Schedule through this Table">
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                             <TableHead>
@@ -62,19 +63,20 @@ export default function UserAppointmentMenu() {
                         </Table>
                     </TableContainer>
                 </Widgets>
-
-
-                <Paper elevation={3} style={paperStyle}>
-                    <Typography variant="h4">Appoint a schedule!</Typography>
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event)=> setCustomerID(event.target.value)} />                      
+            
+                <Widgets title="">
+                    <Box component="form" noValidate autoComplete="off" >
+                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
                     </Box>
 
                     <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
                         <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Booking ID" helperText="Select site ID from below" onChange={(event) => setBookingID(event.target.value)} />
                     </Box>
-                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission }>Submit</Button>
-                </Paper>
+                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                </Widgets>
+                </Box>
+
+
 
 
             </ContentContainer>

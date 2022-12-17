@@ -30,17 +30,10 @@ export default function AppointmentList() {
     useEffect(() => {
         sendRequest({
             method: "GET", 
-            url: "http://localhost:8080/booking/getAllBooking"
+            url: "http://localhost:8080/customer/getAll"
         })
     }, [])
 
-    /*
-    useEffect(() => {
-        sendRequest({
-            method: "GET",
-            url: "http://localhost:8080/site/getAllSites"
-        })
-    }, [])*/
    
 
     return (
@@ -48,26 +41,32 @@ export default function AppointmentList() {
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Testing Center</TableCell>
-                        <TableCell align="right">Booking ID</TableCell>
-                        <TableCell align="right">Scheduled Dates</TableCell>
-
+                        <TableCell>User</TableCell>
+                        <TableCell align="right">Site</TableCell>
+                        <TableCell align="right">Bookings</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {Array.isArray(booking)?booking.map((booked) => (
+                    {Array.isArray(target_user) ? target_user.map((target) => (
                         <TableRow
-                            key={booked.bookingid}
+                            key={target.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
-                                {booked.sitename}
-                            </TableCell>     
-                            <TableCell align="right">{booked.bookingid}</TableCell>
-                            <TableCell align="right">{booked.dateAndTime}</TableCell>
-
+                                {target.username}
+                            </TableCell>
+                            <TableCell align="right">
+                                {Array.isArray(target.sites)?target.sites.map((site:any) => (
+                                    <div key={site.siteid}>{site.sitename}</div>
+                                )):null}
+                            </TableCell>
+                            <TableCell align="right">
+                                {target.bookings.map((booking:any) => (
+                                    <div key={booking.bookingid}>{booking.dateAndTime}</div>
+                                ))}
+                            </TableCell>
                         </TableRow>
-                    )): null}
+                    )) : null}
                 </TableBody>
             </Table>
         </TableContainer>

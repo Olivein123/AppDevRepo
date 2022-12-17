@@ -54,12 +54,12 @@ export interface ScheduleToSite {
 
 
 
-export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, (schedule: Schedule) => void, (sitetouser: SiteToUser)=>void, (scheduletosite: ScheduleToSite) => void, boolean, string, IUser | undefined, ISites | undefined, ISites | undefined] => {
+export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, (schedule: Schedule) => void, (sitetouser: SiteToUser)=>void, (scheduletosite: ScheduleToSite) => void, boolean, string, IUser | undefined, ISites | undefined, Schedule | undefined] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [target_user, setUser] = useState<IUser>(); 
     const [sites, setSites] = useState<ISites>();
-    const [booking, setBooking] = useState<ISites>(); 
+    const [booking, setBooking] = useState<Schedule>(); 
 
 
     function sendRequest(config: AxiosRequestConfig<any>) {
@@ -72,6 +72,7 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
                 setUser(response.data);
                 setBooking(response.data);
                 setSites(response.data); 
+               
             })
             .catch((error) => {
                 setError(error.message);
@@ -158,7 +159,7 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
 
     function addSiteToUser(sitetouser: SiteToUser) {
         setLoading(true);
-        axios.put("http://localhost:8080/customer/updateSites?customerId=", {}, {
+        axios.put("http://localhost:8080/customer/updateSites", {}, {
             params: {
                 customerId: sitetouser.customerid, 
                 siteId: sitetouser.siteid
