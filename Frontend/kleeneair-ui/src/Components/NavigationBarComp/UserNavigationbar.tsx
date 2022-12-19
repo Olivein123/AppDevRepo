@@ -23,7 +23,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import { Menu, MenuItem } from '@mui/material';
+import { Alert, Menu, MenuItem } from '@mui/material';
 
 
 type NavProps = {
@@ -33,10 +33,6 @@ type NavProps = {
 
 const drawerWidth = 240;
 
-
-const userState = () => {
-    alert("Logged out!");
-}
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
@@ -212,7 +208,7 @@ export default function UserNavigationbar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/login" onClick={userState}>
+                        <ListItemButton href="/login">
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>

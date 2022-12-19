@@ -27,7 +27,8 @@ export default function MainRoutes() {
                 <Route path="/about-us" element={<AboutusPage />} />
                 <Route path="/create-site" element={<CreateSite />} />
                 <Route path="/create-schedule" element={<AdminAvailableSchedule />} />
-                <Route path="/cancel-booking" element={<CancelBookingMenu/> }/>
+                <Route path="/cancel-booking" element={<CancelBookingMenu />} />
+
 
             </Routes>  
         </div>

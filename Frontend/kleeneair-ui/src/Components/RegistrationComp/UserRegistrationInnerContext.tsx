@@ -1,6 +1,5 @@
-import { Alert, Button, CircularProgress, Divider, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, TextField } from "@mui/material";
+import { Alert, Button, CircularProgress, Divider, FormControl, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from 'react';
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { RestAPI } from "../../Services/restAPI";
 import axios from "axios";
 
@@ -29,7 +28,6 @@ export default function RegistrationInnerContext() {
     const [platenumber, setPlateNumber] = useState(""); 
 
 
-
     //Contact Number number verify
     const verifyNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value; 
@@ -43,22 +41,28 @@ export default function RegistrationInnerContext() {
     //onClick for registration submission
     const SubmitRegistration = () => {
 
-        newUser({
-            id: -1,
-            firstname: fname,
-            middlename: mname,
-            lastname: lname,
-            address: address,
-            contact_num: contact,
-            license_num: license,
-            username: user,
-            password: pass,
-            vehicles: [],
-            bookings: [], 
-            sites: []
-        })
-        setSuccess(true); 
-        console.log(fname, mname, lname, address, contact, license, user, pass); 
+        if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
+            newUser({
+                id: -1,
+                firstname: fname,
+                middlename: mname,
+                lastname: lname,
+                address: address,
+                contact_num: contact,
+                license_num: license,
+                username: user,
+                password: pass,
+                vehicles: [],
+                bookings: [],
+                sites: []
+            })
+            setSuccess(true);
+            console.log(fname, mname, lname, address, contact, license, user, pass); 
+        }else {
+            console.log("error");
+            return <><div><Alert severity="error" >Fields are required!</Alert ></div></>
+        }
+
     }
 
     if (loading) return <CircularProgress />

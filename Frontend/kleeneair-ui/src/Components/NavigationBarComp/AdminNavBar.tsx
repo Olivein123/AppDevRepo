@@ -33,9 +33,6 @@ type NavProps = {
 const drawerWidth = 240;
 
 
-const userState = () => {
-    alert("Logged out!");
-}
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     open?: boolean;
@@ -210,7 +207,7 @@ export default function AdminNavigationBar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/login" onClick={userState}>
+                        <ListItemButton href="/login">
                             <ListItemIcon>
                                 <LogoutIcon />
                             </ListItemIcon>

@@ -4,7 +4,19 @@ import ContentContainer from "../Components/DashboardComp/PaperStyleContainer";
 import AdminNavigationBar from "../Components/NavigationBarComp/AdminNavBar";
 import { RestAPI } from "../Services/restAPI";
 
+function renderAlert(code: number) {
+    switch (code) {
+        case 0:
+            return <Alert severity="info" sx={{ mt: 2 }}>Did you know, the ozone layer keeps the earth from being warm?</Alert>
+        case 1:
+            return <Alert severity="error" sx={{ mt: 2 }} >Invalid customer/schedule</Alert >;
+        case 2:
+            return <Alert severity="success" sx={{ mt: 2 }}>Schedule is booked successfully!</Alert>;
 
+
+    }
+
+}
 
 
 
@@ -15,6 +27,7 @@ export default function CreateSite() {
     const [siteaddress, setSiteAddress] = useState(""); 
     const [contact, setContactNumber] = useState(63); 
     const [success, setSuccess] = useState(false); 
+    const [code, setCode] = useState(0); 
 
 
     const submitClick = () => {
@@ -78,9 +91,11 @@ export default function CreateSite() {
                 <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submitClick}>Create</Button>
 
                 {success ? (
-                    <Alert severity="success">Site is created!!</Alert>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
+                    <Alert severity="success">Site is created!!</Alert></Box>
                 ) : (
-                    <Alert severity="warning">Error!</Alert>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
+                    <Alert severity="warning">Error!</Alert></Box>
                 )}
 
             </ContentContainer>

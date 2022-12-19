@@ -3,12 +3,29 @@ import { useEffect, useState } from "react";
 import { RestAPI } from "../Services/restAPI";
 import UserNavigationbar from "./NavigationBarComp/UserNavigationbar";
 
+
+function renderAlert(code: number) {
+    switch (code) {
+        case 0:
+            return <Alert severity="info" sx={{ mt: 2}}>Did you know, the ozone layer keeps the earth from being warm?</Alert>
+        case 1:
+            return <Alert severity="error" sx={{ mt: 2 }} >Invalid customer/booking</Alert >;
+        case 2:
+            return <Alert severity="success" sx={{ mt: 2 }}>Schedule successfully cancelled!</Alert>;
+
+
+    }
+
+}
+
+
 export default function CancelBookingMenu() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
     const paperStyle = { padding: '250px 20px', margin: "40px" };
     const [status, setStatus] = useState(false); 
     const [customerId, setCustomerID] = useState("");
     const [bookingId, setBookingID] = useState(""); 
+    const [code, setCode] = useState(0); 
 
     useEffect(() => {
         sendRequest({
@@ -19,14 +36,22 @@ export default function CancelBookingMenu() {
     }, [status])
 
     const submission = () => {
-        cancelBookingToSite({
-            customerid: parseInt(customerId),
-            bookingid: parseInt(bookingId)
-        });
+
+        if (customerId !== "" && bookingId !== "") {
+            setCode(2)
+            cancelBookingToSite({
+                customerid: parseInt(customerId),
+                bookingid: parseInt(bookingId),
+                
+            });
+        } else {
+            setCode(1)
+        }
 
 
+        setStatus(true)
         console.log("Customer ID: " + customerId + " Booking ID: " + bookingId); 
-        setStatus(true); 
+
     }
     return (
         <UserNavigationbar>
@@ -47,11 +72,14 @@ export default function CancelBookingMenu() {
                         </TextField>
                     </Box>
                     <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                    <Button sx={{ width: 180, ml: 2 }} href="/user-appointments">Book Appointment?</Button>
+                    <Box sx={{display:'flex', alignItems:'center', justifyContent:'center', mt:5} }>
+                        {renderAlert(code)}
+                    </Box>
+
                 </Paper>
 
-                {
-                    status ? (<Alert severity="success" > Site assignment successful!</Alert>) : null
-                }
+
 
             </Container>
 

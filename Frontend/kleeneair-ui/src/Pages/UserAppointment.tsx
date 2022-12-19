@@ -1,12 +1,24 @@
 
 
-import { Alert, Box, Button, Container, FormControlLabel, FormGroup, Grid, MenuItem, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, MenuItem, Paper, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import DashboardCardList, { CardInformation } from "../Components/DashboardComp/DashboardCardList";
-import Widgets from "../Components/DashboardComp/DashboardWidgets";
-import ContentContainer from "../Components/DashboardComp/PaperStyleContainer";
 import UserNavigationbar from "../Components/NavigationBarComp/UserNavigationbar";
 import { RestAPI } from "../Services/restAPI";
+
+
+function renderAlert(code: number) {
+    switch (code) {
+        case 0:
+            return <Alert severity="info" sx={{ mt: 2 }}>Did you know, the ozone layer keeps the earth from being warm?</Alert>
+        case 1:
+            return <Alert severity="error" sx={{ mt: 2 }} >Invalid customer/schedule</Alert >;
+        case 2:
+            return <Alert severity="success" sx={{ mt: 2 }}>Schedule is booked successfully!</Alert>;
+
+
+    }
+
+}
 
 export default function UserAppointmentMenu() {
     const paperStyle = { padding: '250px 20px', margin: "40px" };
@@ -15,7 +27,7 @@ export default function UserAppointmentMenu() {
     const [customerId, setCustomerID] = useState(""); 
     const [bookingId, setBookingID] = useState(""); 
     const [status, setStatus] = useState(false); 
-    const [switchPage, setSwitchPage] = useState(false); 
+    const [code, setCode] = useState(0); 
 
     useEffect(() => {
         sendRequest({
@@ -23,13 +35,21 @@ export default function UserAppointmentMenu() {
             url: "http://localhost:8080/booking/getAllBooking"
         })
         setStatus(false); 
-    }, [status])
+    }, [status, code])
+
 
     const submission = () => {
-        addBookingToSite({
-            customerid: parseInt(customerId),
-            bookingid: parseInt(bookingId)
-        }); 
+        if (customerId !== "" && bookingId !== "") {
+            setCode(2);
+            addBookingToSite({
+                customerid: parseInt(customerId),
+                bookingid: parseInt(bookingId)
+            });
+        } else {
+            setCode(1); 
+
+        }
+
 
         setStatus(true); 
         console.log("customerid:" + customerId + "bookingid: " + bookingId); 
@@ -56,13 +76,14 @@ export default function UserAppointmentMenu() {
                             </TextField>
                     </Box>
                     <Button sx={{ width: 150, background: '#2656FF'}} variant="contained" onClick={submission}>Submit</Button>
-                    <Button sx={{ width: 150 }} href="/cancel-booking">Cancel booking?</Button>
+                    <Button sx={{ width: 150, ml: 2 }} href="/cancel-booking">Cancel booking?</Button>
+
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
+                        {renderAlert(code)}
+                    </Box>
                 </Paper>
 
 
-                {
-                    status ? (<Alert severity="success" > Site assignment successful!</Alert>) : null
-                }
 
             </Container>
 

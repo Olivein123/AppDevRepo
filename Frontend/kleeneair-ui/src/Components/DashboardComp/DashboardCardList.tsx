@@ -18,7 +18,7 @@ export interface CardInformation {
 
 export default function CardList(props: CardInformation) {
     return (
-            <Card  sx={{ maxWidth: 250, minWidth: 150,  justifyContent: 'center', display:'inline-block', mr: 2, ml: 2 ,mb: 2 }}>
+        <Card sx={{ maxWidth: 250, minWidth: 150,  justifyContent: 'center', display:'inline-block', mr: 2, ml: 2 ,mb: 2 }}>
                 <CardMedia
                     component="img"
                     height="140"
@@ -35,7 +35,7 @@ export default function CardList(props: CardInformation) {
                     </Typography>
 
                     <Typography variant="body2" color="text.secondary">
-                        {props.address}
+                        Address: {props.address}
                     </Typography>
                 </CardContent>
                 <CardActions>

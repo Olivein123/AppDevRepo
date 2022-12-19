@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -12,10 +10,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Alert, CircularProgress } from '@mui/material';
-import { RestAPI } from '../Services/restAPI';
+import { Alert } from '@mui/material';
+
 
 
 function Copyright(props: any) {
@@ -39,21 +37,28 @@ const textTheme = {
         }
     }
 
+function renderAlert(code: number) {
+    switch (code) {
+        case 0:
+            return <Alert severity="info" sx={{mt: 2} }>Never give out your username & password to strangers.</Alert>
+        case 1:
+            return <Alert severity="error" sx={{ mt: 2 }} >Invalid username or password</Alert >;
+        case 2:
+            return <Alert severity="success" sx={{ mt: 2 }}>Login successfully!</Alert>; 
+       
+
+    }
+
+}
+
+
+
+
 export default function LoginMenu() {
     const [usern, setUsername] = useState(""); 
     const [passw, setPassword] = useState(""); 
     const [status, setStatus] = useState<boolean>(); 
-
-
-    /*
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            username: data.get('username'),
-            password: data.get('password'),
-        });
-    };*/
+    const [code, setCode] = useState(0); 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -71,7 +76,10 @@ export default function LoginMenu() {
                     if (user) { 
                         console.log(usern, passw);
                         console.log("Login successful!");
+                        localStorage.setItem('user', user);  //stores const user to localstorage
+                        setCode(2); 
                         setStatus(true);
+
                         if (usern !== "admin") {
                             window.location.assign('http://localhost:3000/user-dashboard');
                         } else {
@@ -80,6 +88,7 @@ export default function LoginMenu() {
                         
                     } else {
                         console.log('invalid username or password'); 
+                        setCode(1); 
                         setStatus(false); 
                     }
                     
@@ -94,7 +103,16 @@ export default function LoginMenu() {
             });  
     };
 
+
+    useEffect(() => {
+
+    }, [code]);
+
+
     return (
+
+
+
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh', color: 'white'}} >
                 <CssBaseline />
@@ -182,12 +200,14 @@ export default function LoginMenu() {
                             
                             
                         </Box>
+
+
+                        {renderAlert(code)} 
+                       
+                            
                         
-                        {status ? (
-                            <Alert severity="success">Login successfully!</Alert>
-                        ) : (
-                            <Alert severity="error" >Invalid username or password</Alert >
-                        )}
+                        
+
                         
                     </Box>
 

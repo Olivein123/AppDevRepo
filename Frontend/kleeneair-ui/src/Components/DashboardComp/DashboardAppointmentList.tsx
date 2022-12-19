@@ -17,12 +17,6 @@ function createData(
     return {testingcenter, date, time };
 }
 
-const rows = [
-    createData('Y Center', '10/25/2022', '02:45 PM'),
-    createData('Y Center', '10/25/2022', '02:45 PM'),
-    createData('Y Center', '10/25/2022', '02:45 PM')
-
-];
 
 export default function AppointmentList() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user,sites, booking] = RestAPI(); 
