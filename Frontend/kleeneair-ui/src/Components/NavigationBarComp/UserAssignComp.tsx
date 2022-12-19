@@ -1,6 +1,6 @@
 
 
-import { Box, Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, MenuItem, Paper, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { RestAPI } from "../../Services/restAPI";
 import DashboardCardList from "../DashboardComp/DashboardCardList";
@@ -15,13 +15,15 @@ export default function UserSetSiteMenu() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites] = RestAPI();
     const [customerId, setCustomerID] = useState("");
     const [siteId, setSiteID] = useState("");
+    const [status, setStatus] = useState(false); 
 
     useEffect(() => {
         sendRequest({
             method: "GET",
             url: "http://localhost:8080/site/getAllSites"
         })
-    }, [])
+        setStatus(false); 
+    }, [status])
 
     const submission = () => {
         addSiteToUser({
@@ -29,6 +31,7 @@ export default function UserSetSiteMenu() {
             siteid: parseInt(siteId)
         });
 
+        setStatus(true); 
         console.log("customerid:" + customerId + "siteid: " + siteId);
     }
 
@@ -37,27 +40,33 @@ export default function UserSetSiteMenu() {
 
         <UserNavigationbar>
 
-            <ContentContainer headings="">
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Widgets title="">
-                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
+            <Container maxWidth={false}>
+                <Paper elevation={3} style={paperStyle}>
+                    <Typography variant="h4">Select Your Site</Typography>
+                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" value={customerId} helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
+                            <br/>
+                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Site" select value={siteId} helperText="Select location of available testing centers from below" onChange={(event) => setSiteID(event.target.value)}>
+                            {Array.isArray(sites) ? // "?" -> if naay value ang sites then i-map niya ang sites
+                                sites.map((site) => (
+                                    <MenuItem key={site.siteid} value={site.siteid} >
+                                            {site.sitename}
+                                        </MenuItem>
+                                    )) : null}
+                            </TextField>
                         </Box>
+                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
 
-                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Site ID" helperText="Select site ID from below" onChange={(event) => setSiteID(event.target.value)} />
-                        </Box>
-                        <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
-                    </Widgets>                
-                     <Widgets title="">
-                        {Array.isArray(sites) ? sites.map((site) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
+                </Paper>
 
-                            <DashboardCardList key={site.siteid} sitename={site.sitename} siteid={site.siteid} image='./Images/emission-center-img-1.jpg' address={site.address} alttext="" />
-                        }</Grid>) : null}
-                     </Widgets>
+                {
+                    status ? (<Alert severity="success" > Site assignment successful!</Alert>):null                     
+                } 
 
-                </Box>
-            </ContentContainer>
+            </Container>
+
+
+
 
 
         </UserNavigationbar>
@@ -67,3 +76,12 @@ export default function UserSetSiteMenu() {
 
 
 }
+
+/*
+ *                      <Widgets title="">
+                        {Array.isArray(sites) ? sites.map((site) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
+
+                            <DashboardCardList key={site.siteid} sitename={site.sitename} siteid={site.siteid} image='./Images/emission-center-img-1.jpg' address={site.address} alttext="" />
+                        }</Grid>) : null}
+                     </Widgets>
+ */ 

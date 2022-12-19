@@ -1,6 +1,6 @@
 
 
-import { Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Grid, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import DashboardCardList, { CardInformation } from "../Components/DashboardComp/DashboardCardList";
 import Widgets from "../Components/DashboardComp/DashboardWidgets";
@@ -14,13 +14,15 @@ export default function UserAppointmentMenu() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
     const [customerId, setCustomerID] = useState(""); 
     const [bookingId, setBookingID] = useState(""); 
+    const [status, setStatus] = useState(false); 
 
     useEffect(() => {
         sendRequest({
             method: "GET",
             url: "http://localhost:8080/booking/getAllBooking"
-            })
-    }, [])
+        })
+        setStatus(false); 
+    }, [status])
 
     const submission = () => {
         addBookingToSite({
@@ -28,6 +30,7 @@ export default function UserAppointmentMenu() {
             bookingid: parseInt(bookingId)
         }); 
 
+        setStatus(true); 
         console.log("customerid:" + customerId + "bookingid: " + bookingId); 
     }
 
@@ -35,8 +38,44 @@ export default function UserAppointmentMenu() {
             
 
             <UserNavigationbar>
-            <ContentContainer headings="Book an Appointment">
-                <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <Container maxWidth={false}>
+                <Paper elevation={3} style={paperStyle}>
+                    <Typography variant="h4">Select Your Testing Schedule</Typography>
+                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" value={customerId} label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
+                    </Box>
+
+                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
+                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Schedule" select helperText="Select site ID from below" value={bookingId} onChange={(event) => setBookingID(event.target.value)} >
+                            {
+                                Array.isArray(booking) ? booking.map((booked) => (
+                                    <MenuItem key={booked.bookingid} value={booked.bookingid}>{booked.dateAndTime}</MenuItem>    
+                                    )):null
+                                }
+                            </TextField>
+                    </Box>
+                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                </Paper>
+
+                {
+                    status ? (<Alert severity="success" > Site assignment successful!</Alert>) : null
+                }
+
+            </Container>
+
+
+            </UserNavigationbar>
+        
+        
+        ); 
+
+
+}
+
+
+/*
+ * 
+ *                 <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
                 <Widgets title="Select a Schedule through this Table">
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -63,29 +102,4 @@ export default function UserAppointmentMenu() {
                         </Table>
                     </TableContainer>
                 </Widgets>
-            
-                <Widgets title="">
-                    <Box component="form" noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
-                    </Box>
-
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Booking ID" helperText="Select site ID from below" onChange={(event) => setBookingID(event.target.value)} />
-                    </Box>
-                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
-                </Widgets>
-                </Box>
-
-
-
-
-            </ContentContainer>
-
-
-            </UserNavigationbar>
-        
-        
-        ); 
-
-
-}
+ */ 
