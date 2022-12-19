@@ -1,6 +1,6 @@
 
 
-import { Alert, Box, Button, Container, Grid, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, FormControlLabel, FormGroup, Grid, MenuItem, Paper, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import DashboardCardList, { CardInformation } from "../Components/DashboardComp/DashboardCardList";
 import Widgets from "../Components/DashboardComp/DashboardWidgets";
@@ -11,10 +11,11 @@ import { RestAPI } from "../Services/restAPI";
 export default function UserAppointmentMenu() {
     const paperStyle = { padding: '250px 20px', margin: "40px" };
 
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
     const [customerId, setCustomerID] = useState(""); 
     const [bookingId, setBookingID] = useState(""); 
     const [status, setStatus] = useState(false); 
+    const [switchPage, setSwitchPage] = useState(false); 
 
     useEffect(() => {
         sendRequest({
@@ -54,8 +55,10 @@ export default function UserAppointmentMenu() {
                                 }
                             </TextField>
                     </Box>
-                    <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                    <Button sx={{ width: 150, background: '#2656FF'}} variant="contained" onClick={submission}>Submit</Button>
+                    <Button sx={{ width: 150 }} href="/cancel-booking">Cancel booking?</Button>
                 </Paper>
+
 
                 {
                     status ? (<Alert severity="success" > Site assignment successful!</Alert>) : null

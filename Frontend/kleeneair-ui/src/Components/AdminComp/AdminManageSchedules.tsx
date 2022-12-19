@@ -7,7 +7,7 @@ import AdminNavigationBar from "../NavigationBarComp/AdminNavBar";
 
 
 export default function AdminAvailableSchedule() {
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking] = RestAPI();
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI();
     const paperStyle = { padding: '250px 20px', margin: "40px", justifyContent: "space-evenly" }
     const [dateandtime, setDateAndTime] = useState(""); 
 

@@ -52,9 +52,14 @@ export interface ScheduleToSite {
     bookingid: number
 }
 
+export interface CancelBooking {
+    customerid: number,
+    bookingid: number
+}
 
 
-export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, (schedule: Schedule) => void, (sitetouser: SiteToUser)=>void, (scheduletosite: ScheduleToSite) => void, boolean, string, IUser | undefined, ISites | undefined, Schedule | undefined] => {
+
+export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<any>) => void, (isites: ISites) => void, (schedule: Schedule) => void, (sitetouser: SiteToUser) => void, (scheduletosite: ScheduleToSite) => void, (cancelbooking: CancelBooking)=>void , boolean, string, IUser | undefined, ISites | undefined, Schedule | undefined] => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [target_user, setUser] = useState<IUser>(); 
@@ -193,7 +198,23 @@ export const RestAPI = (): [(iuser: IUser) => void, (config: AxiosRequestConfig<
             });
     }
 
+    //DELETE
 
-    return [newUser, sendRequest,newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites, booking]
+    function cancelBookingToSite(cancelbooking: CancelBooking) {
+        setLoading(true);
+        axios.delete(`http://localhost:8080/customer/cancelBookingsToSite/${cancelbooking.customerid},${cancelbooking.bookingid}`)
+            .then((response) => {
+                // handle success
+            })
+            .catch((error) => {
+                setError(error.message);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+
+
+    return [newUser, sendRequest,newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking]
 
 }

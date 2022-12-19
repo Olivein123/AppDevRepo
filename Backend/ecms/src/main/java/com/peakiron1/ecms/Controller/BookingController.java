@@ -34,12 +34,13 @@ public class BookingController {
 	
 	
 	//READ
+	@CrossOrigin
 	@GetMapping("/getAllBooking")
 	public List<BookingEntity> getAllBooking(){return bookServ.getAllBooking();}
 	
 	
 	//UPDATE
-	
+	@CrossOrigin
 	@PutMapping("/updateBooking")
 	public BookingEntity updateBooking(@RequestParam int bookingid, @RequestBody BookingEntity updateBooking) throws Exception{
 		return bookServ.updateBookingSchedule(bookingid, updateBooking); 
@@ -47,7 +48,7 @@ public class BookingController {
 	
 	//DELETE
 	
-	
+	@CrossOrigin
 	@DeleteMapping("/cancelBooking/{bookingid}")
 	public String cancelBooking(@PathVariable int bookingid) {
 		return bookServ.cancelBooking(bookingid);

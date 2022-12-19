@@ -23,6 +23,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
+import { Menu, MenuItem } from '@mui/material';
 
 
 type NavProps = {
@@ -89,6 +90,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function UserNavigationbar(props: NavProps) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -171,7 +173,7 @@ export default function UserNavigationbar(props: NavProps) {
                     <ListItem disablePadding>
                         <ListItemButton href="/user-appointments">
                             <ListItemIcon>
-                                <BookOnlineIcon />
+                                <BookOnlineIcon />                                                                      
                             </ListItemIcon>
                             <ListItemText primary='Appointments' />
                         </ListItemButton>

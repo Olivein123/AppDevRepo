@@ -1,5 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
 import AdminAvailableSchedule from './Components/AdminComp/AdminManageSchedules';
+import CancelBookingMenu from './Components/UserCancelBooking';
 import AboutusPage from './Pages/AboutUs';
 import CreateSite from './Pages/AdminCreateSite';
 import AdminDashboard from './Pages/AdminDashboard';
@@ -25,7 +26,8 @@ export default function MainRoutes() {
                 <Route path="/test" element={<TestAxios />} />
                 <Route path="/about-us" element={<AboutusPage />} />
                 <Route path="/create-site" element={<CreateSite />} />
-                <Route path="/create-schedule" element={<AdminAvailableSchedule/> }/>
+                <Route path="/create-schedule" element={<AdminAvailableSchedule />} />
+                <Route path="/cancel-booking" element={<CancelBookingMenu/> }/>
 
             </Routes>  
         </div>

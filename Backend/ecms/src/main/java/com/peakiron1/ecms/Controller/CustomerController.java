@@ -42,6 +42,7 @@ public class CustomerController {
 		return custServ.deleteCustomer(id);
 	}
 	
+	@CrossOrigin
 	@DeleteMapping("/cancelBookingsToSite/{customerId},{bookingId}")
 	public String cancelBookingsToSite(@PathVariable int customerId, @PathVariable int bookingId) {
 		return custServ.cancelBookingsToSite(customerId, bookingId); 

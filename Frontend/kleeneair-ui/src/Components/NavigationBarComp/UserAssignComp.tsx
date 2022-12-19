@@ -12,7 +12,7 @@ export default function UserSetSiteMenu() {
     const paperStyle = { padding: '250px 20px', margin: "40px" };
     const widgetPaper = { padding: '10px 20px', margin: "40px" }
 
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user, sites] = RestAPI();
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites] = RestAPI();
     const [customerId, setCustomerID] = useState("");
     const [siteId, setSiteID] = useState("");
     const [status, setStatus] = useState(false); 

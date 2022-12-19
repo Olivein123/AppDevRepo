@@ -25,7 +25,7 @@ const rows = [
 ];
 
 export default function AppointmentList() {
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, loading, error, target_user,sites, booking] = RestAPI(); 
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user,sites, booking] = RestAPI(); 
 
     useEffect(() => {
         sendRequest({
