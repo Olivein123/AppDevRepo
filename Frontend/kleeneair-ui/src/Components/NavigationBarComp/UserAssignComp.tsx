@@ -50,7 +50,7 @@ export default function UserSetSiteMenu() {
                             {Array.isArray(sites) ? // "?" -> if naay value ang sites then i-map niya ang sites
                                 sites.map((site) => (
                                     <MenuItem key={site.siteid} value={site.siteid} >
-                                            {site.sitename}
+                                            {site.sitename}, {site.siteaddress}
                                         </MenuItem>
                                     )) : null}
                             </TextField>

@@ -92,5 +92,24 @@ public class CustomerService {
 		return crepo.save(customer);
 	}
 	
+	public String cancelBookingsToSite(int customerId, int bookingId) {
+		BookingEntity booking = new BookingEntity();
+		CustomerEntity customer; 
+		String msg; 
+		
+		customer = crepo.findById(customerId).get();
+		booking = brepo.findById(bookingId).get();
+		
+		if(booking!=null) {
+			brepo.deleteById(bookingId);
+			
+			msg = "Customer ID: " + customerId + "has cancelled Booking ID: " + bookingId;
+		}else {
+			msg = "Error";
+		}
+		
+		return msg; 
+	}
+	
 
 }

@@ -42,6 +42,11 @@ public class CustomerController {
 		return custServ.deleteCustomer(id);
 	}
 	
+	@DeleteMapping("/cancelBookingsToSite/{customerId},{bookingId}")
+	public String cancelBookingsToSite(@PathVariable int customerId, @PathVariable int bookingId) {
+		return custServ.cancelBookingsToSite(customerId, bookingId); 
+	}
+	
 	@CrossOrigin
 	@PutMapping("/updateBooking")
 	public CustomerEntity addBookingsToSite(@RequestParam int customerId, @RequestParam int bookingId) {
