@@ -24,6 +24,7 @@ import BookOnlineIcon from '@mui/icons-material/BookOnline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import { Alert, Menu, MenuItem } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 
 type NavProps = {
@@ -96,6 +97,19 @@ export default function UserNavigationbar(props: NavProps) {
         setOpen(false);
     };
 
+    useEffect(() => {
+        const userData = sessionStorage.getItem('user'); 
+
+        if (userData) {
+            const user = JSON.parse(userData);
+            setLoggedUser(user.firstname); 
+        } else {
+            window.location.assign('http://localhost:3000/login');
+        }
+    }, [])
+
+    const [loggedUser, setLoggedUser] = useState(""); 
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -142,7 +156,7 @@ export default function UserNavigationbar(props: NavProps) {
                 </DrawerHeader>
                 <List>
                     <img src="./Images/lolo.png" style={{ height: 120, width: 120 }} />
-                    <Typography variant="subtitle1" sx={{ mb: 2 }}>Welcome User!</Typography>
+                    <Typography variant="subtitle1" sx={{ mb: 2 }}>Welcome {loggedUser}</Typography>
 
                 </List>
                 <Divider />
@@ -208,9 +222,10 @@ export default function UserNavigationbar(props: NavProps) {
                     </ListItem>
 
                     <ListItem disablePadding>
-                        <ListItemButton href="/login">
+                        <ListItemButton href="/login" onClick={() => { sessionStorage.clear() }}>
                             <ListItemIcon>
                                 <LogoutIcon />
+                                
                             </ListItemIcon>
                             <ListItemText primary='Logout' />
                         </ListItemButton>

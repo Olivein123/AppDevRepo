@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { RestAPI } from '../../Services/restAPI';
 
 function createData(
@@ -17,19 +17,33 @@ function createData(
     return {testingcenter, date, time };
 }
 
+export type Query =  {
+    username: string; 
+    site: string; 
+    bookings: string; 
+}
 
 export default function AppointmentList() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user,sites, booking] = RestAPI(); 
+    const [loggedUser, setLoggedUser] = useState<Query | null>(null); 
+    const userData = sessionStorage.getItem('user'); 
 
     useEffect(() => {
         sendRequest({
             method: "GET", 
             url: "http://localhost:8080/customer/getAll"
         })
+
+        if (userData) {
+            const user = JSON.parse(userData);
+            setLoggedUser(user); 
+        } else {
+            window.location.assign('http://localhost:3000/login');
+        }
+
     }, [])
 
-   
-
+  
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -41,7 +55,9 @@ export default function AppointmentList() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {Array.isArray(target_user) ? target_user.map((target) => (
+                    {Array.isArray(target_user) ? target_user
+                        .filter((target:any) => loggedUser && target.username === loggedUser.username)
+                        .map((target) => (
                         <TableRow
                             key={target.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

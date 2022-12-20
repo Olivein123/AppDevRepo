@@ -21,7 +21,7 @@ export default function MainRoutes() {
                 <Route path="/register" element={<RegisterUser/>}/>
                 <Route path="/user-select-site" element={<UserSetSiteMenu />} />
                 <Route path="/user-dashboard" element={<UserDashboard />} />
-                <Route path="/user-appointments" element={<UserAppointmentMenu />} />
+                <Route path="/user-appointments" element={<UserAppointmentMenu/>} />
                 <Route path="/admin-dashboard" element={<AdminDashboard />}/>
                 <Route path="/test" element={<TestAxios />} />
                 <Route path="/about-us" element={<AboutusPage />} />

@@ -57,7 +57,6 @@ function renderAlert(code: number) {
 export default function LoginMenu() {
     const [usern, setUsername] = useState(""); 
     const [passw, setPassword] = useState(""); 
-    const [status, setStatus] = useState<boolean>(); 
     const [code, setCode] = useState(0); 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -76,9 +75,8 @@ export default function LoginMenu() {
                     if (user) { 
                         console.log(usern, passw);
                         console.log("Login successful!");
-                        localStorage.setItem('user', user);  //stores const user to localstorage
+                        sessionStorage.setItem('user', JSON.stringify(user)); 
                         setCode(2); 
-                        setStatus(true);
 
                         if (usern !== "admin") {
                             window.location.assign('http://localhost:3000/user-dashboard');
@@ -89,7 +87,6 @@ export default function LoginMenu() {
                     } else {
                         console.log('invalid username or password'); 
                         setCode(1); 
-                        setStatus(false); 
                     }
                     
                 } else {
@@ -98,8 +95,6 @@ export default function LoginMenu() {
             })
             .catch(error => {
                 console.log(error);
-                console.log(status);
-                setStatus(false)
             });  
     };
 
@@ -144,7 +139,7 @@ export default function LoginMenu() {
                         }}
                     >
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                            <LockOutlinedIcon />
+                            <img src="./Images/logo.png" style={{ height: 60, width: 60 }} />
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Sign in
