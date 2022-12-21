@@ -1,6 +1,6 @@
 
 
-import { Alert, Box, Button, Container, MenuItem, Paper, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, MenuItem, Paper, Snackbar, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import UserNavigationbar from "../Components/NavigationBarComp/UserNavigationbar";
 import { RestAPI } from "../Services/restAPI";
@@ -20,22 +20,40 @@ function renderAlert(code: number) {
 
 }
 
+export type Query = {
+    username: string;
+    site: string;
+    dateAndTime: string
+}
+
 export default function UserAppointmentMenu() {
     const paperStyle = { padding: '250px 20px', margin: "40px" };
 
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
-    const [customerId, setCustomerID] = useState(""); 
-    const [bookingId, setBookingID] = useState(""); 
-    const [status, setStatus] = useState(false); 
-    const [code, setCode] = useState(0); 
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI();
+    const [customerId, setCustomerID] = useState("");
+    const [bookingId, setBookingID] = useState("");
+    const [code, setCode] = useState(0);
+
+    //FOR AUTH
+    const userData = sessionStorage.getItem('user');
+    const [loggedUser, setLoggedUser] = useState<Query | null>(null);
 
     useEffect(() => {
         sendRequest({
             method: "GET",
             url: "http://localhost:8080/booking/getAllBooking"
         })
-        setStatus(false); 
-    }, [status, code])
+
+        //check to see if user is logged in 
+        if (userData) {
+            const user = JSON.parse(userData);
+            setLoggedUser(user);
+            setCustomerID(user.id);
+
+        } else {
+            window.location.assign('http://localhost:3000/login');
+        }
+    }, [code]);
 
 
     const submission = () => {
@@ -44,86 +62,50 @@ export default function UserAppointmentMenu() {
             addBookingToSite({
                 customerid: parseInt(customerId),
                 bookingid: parseInt(bookingId)
-            });
+            })
         } else {
-            setCode(1); 
-
+            setCode(1);
         }
-
-
-        setStatus(true); 
-        console.log("customerid:" + customerId + "bookingid: " + bookingId); 
+        console.log("customerid:" + customerId + "bookingid: " + bookingId);
     }
 
-    return (
-            
+
+ 
+        return (
 
             <UserNavigationbar>
-            <Container maxWidth={false}>
-                <Paper elevation={3} style={paperStyle}>
-                    <Typography variant="h4">Select Your Testing Schedule</Typography>
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" value={customerId} label="Your Customer ID" helperText="Your customer ID is" onChange={(event) => setCustomerID(event.target.value)} />
-                    </Box>
+                <Container maxWidth={false}>
+                    <Paper elevation={3} style={paperStyle}>
+                        <Typography variant="h4">Select Your Testing Schedule</Typography>
 
-                    <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off" >
-                        <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Schedule" select helperText="Select site ID from below" value={bookingId} onChange={(event) => setBookingID(event.target.value)} >
-                            {
-                                Array.isArray(booking) ? booking.map((booked) => (
-                                    <MenuItem key={booked.bookingid} value={booked.bookingid}>{booked.dateAndTime}</MenuItem>    
+                        <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off">
+                            <TextField sx={{ mt: 2, width: 350 }} id="filled-select-location" label="Schedule" select helperText="Select site ID from below" value={bookingId} onChange={(event) => setBookingID(event.target.value)}>
+                                {
+                                Array.isArray(booking)?booking.map((booked) => (
+                                        <MenuItem key={booked.bookingid} value={booked.bookingid}>{booked.dateAndTime}</MenuItem>
                                     )):null
                                 }
                             </TextField>
-                    </Box>
-                    <Button sx={{ width: 150, background: '#2656FF'}} variant="contained" onClick={submission}>Submit</Button>
-                    <Button sx={{ width: 150, ml: 2 }} href="/cancel-booking">Cancel booking?</Button>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
-                        {renderAlert(code)}
-                    </Box>
-                </Paper>
+                        </Box>
+                        <Button sx={{ width: 150, background: '#2656FF' }} variant="contained" onClick={submission}>Submit</Button>
+                        <Button sx={{ width: 150, ml: 2 }} href="/cancel-booking">Cancel booking?</Button>
+
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 5 }}>
+                            {renderAlert(code)}
+                        </Box>
+                    </Paper>
 
 
 
-            </Container>
+                </Container>
 
 
             </UserNavigationbar>
-        
-        
-        ); 
 
 
+        );
+
+
+ 
 }
-
-
-/*
- * 
- *                 <Box sx={{display:'flex', justifyContent: 'center', alignItems: 'center'}}>
-                <Widgets title="Select a Schedule through this Table">
-                    <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Booking ID</TableCell>
-                                    <TableCell align="right">Date and Time</TableCell>                                
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {Array.isArray(booking) ? booking.map((book) => (
-                                    <TableRow
-                                        key={book.bookingid}
-                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                        <TableCell component="th" scope="row">
-                                            {book.bookingid}
-                                        </TableCell>
-                                        <TableCell align="right">{book.dateAndTime}</TableCell>
-
-                                    </TableRow>
-                                )) : null}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </Widgets>
- */ 

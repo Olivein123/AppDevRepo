@@ -21,7 +21,7 @@ export default function DashboardContainer() {
 
     return (
         <ContentContainer headings="Dashboard">                
-                <Widgets title="Scheduled Appointment by Users">
+                <Widgets title="Scheduled Appointment">
                     <AppointmentList />
             </Widgets>
             <Divider variant="middle" />
