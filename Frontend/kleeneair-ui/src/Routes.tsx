@@ -35,7 +35,6 @@ export default function MainRoutes() {
         );
 }
 
-
 /* USE THIS FORMAT INIG DASHBOARD NA TO ACCESS THE PAGE WITHIN A PAGE, 
  *                <Route path="/" element={<LandingPage />}>
                     <Route path="/login" element={<LoginMenu />} />

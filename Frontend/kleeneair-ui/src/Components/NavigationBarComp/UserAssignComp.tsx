@@ -13,11 +13,9 @@ function renderAlert(code: number) {
             return <Alert severity="error" sx={{ mt: 2 }} >Invalid customer/schedule</Alert >;
         case 2:
             return <Alert severity="success" sx={{ mt: 2 }}>Site is assigned successfully!</Alert>;
-
-
     }
-
 }
+
 export default function UserSetSiteMenu() {
     const paperStyle = { padding: '250px 20px', margin: "40px" };
     const widgetPaper = { padding: '10px 20px', margin: "40px" }
@@ -26,7 +24,6 @@ export default function UserSetSiteMenu() {
     const [customerId, setCustomerID] = useState("");
     const [siteId, setSiteID] = useState("");
     const [code, setCode] = useState(0);
-
 
     //FOR AUTH
     const userData = sessionStorage.getItem('user'); 

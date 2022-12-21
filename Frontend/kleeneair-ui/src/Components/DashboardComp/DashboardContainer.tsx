@@ -29,7 +29,8 @@ export default function DashboardContainer() {
                 <Typography variant="h6" sx={{ mb: -6, mt: 5 }}>Nearby Testing Centers</Typography>
                 <Widgets title="">                    
                     <Box component="form" sx={{ m: 2 }} noValidate autoComplete="off">
-                    {Array.isArray(sites) ? sites.map((site) => <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
+                    {Array.isArray(sites) ? sites.map((site) => 
+                    <Grid item xs={4} sx={{ whiteSpace: 'nowrap', display: 'inline-block' }}>{
 
                         <DashboardCardList key={site.siteid} sitename={site.sitename} siteid={site.siteid} image='./Images/emission-center-img-1.jpg' address={site.siteaddress} alttext="" />
                     }</Grid>) : null}

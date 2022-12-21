@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Alert } from '@mui/material';
+import SnackbarComp from '../Components/Snackbar/SnackbarComp';
 
 
 
@@ -37,29 +38,16 @@ const textTheme = {
         }
     }
 
-function renderAlert(code: number) {
-    switch (code) {
-        case 0:
-            return <Alert severity="info" sx={{mt: 2} }>Never give out your username & password to strangers.</Alert>
-        case 1:
-            return <Alert severity="error" sx={{ mt: 2 }} >Invalid username or password</Alert >;
-        case 2:
-            return <Alert severity="success" sx={{ mt: 2 }}>Login successfully!</Alert>; 
-    }
-
-}
-
-
-
 
 export default function LoginMenu() {
     const [usern, setUsername] = useState(""); 
     const [passw, setPassword] = useState(""); 
     const [code, setCode] = useState(0); 
+    const [open, setOpen] = React.useState(false);
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        setOpen(true);
         axios.get('http://localhost:8080/customer/getAll', {
             params: {
                 username: usern,
@@ -103,9 +91,6 @@ export default function LoginMenu() {
 
 
     return (
-
-
-
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh', color: 'white'}} >
                 <CssBaseline />
@@ -194,8 +179,13 @@ export default function LoginMenu() {
                             
                         </Box>
 
-
-                        {renderAlert(code)} 
+                        <Alert severity="info" sx={{mt: 2} }>Never give out your username & password to strangers.</Alert>
+                        <SnackbarComp 
+                            setOpen={setOpen}
+                            open={open}
+                            code={code} 
+                            successMessage={'Login success!'} 
+                            errorMessage={'Login failed!'}/>
                        
                             
                         

@@ -72,7 +72,7 @@ export default function CancelBookingMenu() {
 
     const submission = (bookingID: number) => {
 
-        setBookingID(bookingID);
+        setBookingID(bookingID); 
         if (customerId !== "" && bookingId !== null) {
             setCode(2)
             cancelBookingToSite({
@@ -80,8 +80,8 @@ export default function CancelBookingMenu() {
                 bookingid: bookingID,
                 
             });
-
             console.log("Customer ID: " + customerId + " Booking ID: " + bookingId); 
+           
         } else {
             setCode(1)
         }

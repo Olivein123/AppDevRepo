@@ -1,7 +1,8 @@
 import { Alert, Button, CircularProgress, Divider, FormControl, Grid, TextField } from "@mui/material";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { RestAPI } from "../../Services/restAPI";
 import axios from "axios";
+import SnackbarComp from "../Snackbar/SnackbarComp";
 
 
 
@@ -26,7 +27,18 @@ export default function RegistrationInnerContext() {
     const [pass, setPassword] = useState(""); 
     const [model, setModel] = useState(""); 
     const [platenumber, setPlateNumber] = useState(""); 
-
+    const [userClicked, setUserClicked] = useState(false);
+    const [fnameClicked, setFnameClicked] = useState(false);
+    const [mnameClicked, setMnameClicked] = useState(false);
+    const [lnameClicked, setLnameClicked] = useState(false);
+    const [addressClicked, setAddressClicked] = useState(false);
+    const [contactClicked, setContactClicked] = useState(false);
+    const [licenseClicked, setLicenseClicked] = useState(false);
+    const [passClicked, setPassClicked] = useState(false);
+    const [modelClicked, setModelClicked] = useState(false);
+    const [plateNumberClicked, setPlateNumberClicked] = useState(false);
+    const [code, setCode] = useState(0); 
+    const [open, setOpen] = useState(false);
 
     //Contact Number number verify
     const verifyNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +52,17 @@ export default function RegistrationInnerContext() {
 
     //onClick for registration submission
     const SubmitRegistration = () => {
-
+        setOpen(true)
+        setUserClicked(true)
+        setFnameClicked(true)
+        setMnameClicked(true)
+        setLnameClicked(true)
+        setAddressClicked(true)
+        setContactClicked(true)
+        setLicenseClicked(true)
+        setPassClicked(true)
+        setModelClicked(true)
+        setPlateNumberClicked(true)
         if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
             newUser({
                 id: -1,
@@ -57,9 +79,11 @@ export default function RegistrationInnerContext() {
                 sites: []
             })
             setSuccess(true);
+            setCode(2);
             console.log(fname, mname, lname, address, contact, license, user, pass); 
         }else {
             console.log("error");
+            setCode(1);
             return <><div><Alert severity="error" >Fields are required!</Alert ></div></>
         }
 
@@ -89,39 +113,63 @@ export default function RegistrationInnerContext() {
 
             <div className="registerInLine">
                     <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField id="username" label="Username" type="text" variant="outlined" value={user} key="user" onChange={(event) => setUsername(event.target.value)} />
+                        <TextField error = {user === "" && userClicked} id="username" label="Username" 
+                        type="text" variant="outlined" value={user} key="user" 
+                        onClick={()=> setUserClicked(true)}
+                        onChange={(event) => setUsername(event.target.value)} />
                     </FormControl>
 
                     <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField required id="password" label="Password" type="Password" variant="outlined" value={pass} key="pass" onChange={(event) => setPassword(event.target.value)} />
+                        <TextField error = {pass === "" && passClicked} required id="password" label="Password" 
+                        type="Password" variant="outlined" value={pass} key="pass" 
+                        onClick={()=>setPassClicked(true)}
+                        onChange={(event) => setPassword(event.target.value)} />
                     </FormControl>
             </div>
             
             <div className="registerInLine">
             <FormControl sx={{ ml:3, mb: 3}} variant="outlined">
-                        <TextField id="firstname" label="First Name" type="text" value={fname} variant="outlined" key="ftname" onChange={(event) => setFirstname(event.target.value)} />
+                        <TextField  error = {fname === "" && fnameClicked} id="firstname" label="First Name" 
+                        onClick={()=>setFnameClicked(true)}
+                        type="text" value={fname} variant="outlined" key="ftname" 
+                        onChange={(event) => setFirstname(event.target.value)} />
             </FormControl>
             <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField id="middlename" label="Middle Name" type="text" value={mname} variant="outlined" key="mname"  onChange={(event) => setMiddlename(event.target.value)} />
+                        <TextField error = {mname === "" && mnameClicked} id="middlename" label="Middle Name" 
+                        onClick={()=>setMnameClicked(true)}
+                        type="text" value={mname} variant="outlined" key="mname"  
+                        onChange={(event) => setMiddlename(event.target.value)} />
             </FormControl>
             <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField id="lastname" label="Last Name" type="text" value={lname} variant="outlined" key="lname" onChange={(event) => setLastname(event.target.value)} />
+                        <TextField error = {lname === "" && lnameClicked} id="lastname" label="Last Name" 
+                        onClick={()=>setLnameClicked(true)}
+                        type="text" value={lname} variant="outlined" key="lname" 
+                        onChange={(event) => setLastname(event.target.value)} />
             </FormControl>
             </div>
 
             <div className="registerInLine">
             <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField id="address" label="Address" type="text" value={address} variant="outlined" key="address" onChange={(event) => setAddress(event.target.value)} />
+                        <TextField error={address === "" && addressClicked} id="address" label="Address"
+                        onClick={()=>setAddressClicked(true)} 
+                        type="text" value={address} variant="outlined" key="address" 
+                        onChange={(event) => setAddress(event.target.value)} />
                     </FormControl>
                 </div>
             
 
             <div className="registerInLine">
             <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField id="contactnumber" label="Contact Number" type="tel" value={contact} variant="outlined" key="contact" onChange={verifyNumber} />
+                        <TextField error ={contact === 63 && contactClicked} id="contactnumber" label="Contact Number" 
+                        onClick={()=>setContactClicked(true)}
+                        type="tel" value={contact} variant="outlined" key="contact" 
+                        onChange={verifyNumber} />
             </FormControl>
             <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField id="licensenumber" label="License Number" type="tel" value={license} variant="outlined" key="license" onChange={(event) => setLicenseNumber(event.target.value)} />
+                        <TextField error ={license == "" && licenseClicked} id="licensenumber" label="License Number" 
+                        onClick={()=>setLicenseClicked(true)}
+                        type="tel" value={license} variant="outlined" key="license" 
+                        onChange={(event) => setLicenseNumber(event.target.value)} />
             </FormControl>
 
                 </div>
@@ -129,10 +177,16 @@ export default function RegistrationInnerContext() {
                 <Divider sx={{ mt: 2, mb:2 }}>Vehicle Details</Divider>
             <div className="registerInLine">
                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField id="model" label="Vehicle Model" type="tel" value={model} variant="outlined" key="model" onChange={(event) => setModel(event.target.value)} />
+                  <TextField error={model == "" && modelClicked} id="model" label="Vehicle Model" 
+                  onClick={()=>setModelClicked(true)}
+                  type="tel" value={model} variant="outlined" key="model" 
+                  onChange={(event) => setModel(event.target.value)} />
                </FormControl>
                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField id="platenumber" label="Plate Number" type="tel" value={platenumber} variant="outlined" key="platenumber" onChange={(event) => setPlateNumber(event.target.value)} />
+                  <TextField error={platenumber == "" && plateNumberClicked} id="platenumber" label="Plate Number" 
+                  onClick={()=>setPlateNumberClicked(true)}
+                  type="tel" value={platenumber} variant="outlined" key="platenumber" 
+                  onChange={(event) => setPlateNumber(event.target.value)} />
                </FormControl>
             </div>
 
@@ -144,8 +198,15 @@ export default function RegistrationInnerContext() {
                 <Grid item sx={{ ml: 3, mt: -1,   fontSize: "15px" }}>
                     <p>Already have an account? <a href="/login">Log in</a></p>
                 </Grid>
+                <SnackbarComp 
+                setOpen={setOpen}
+                open={open}
+                code={code} 
+                successMessage={'Register success!'} 
+                errorMessage={'Register failed!'}/>
             </Grid>
             </div>
+            
         </FormControl>
         
         
