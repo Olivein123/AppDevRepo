@@ -19,7 +19,7 @@ import { Alert } from '@mui/material';
 function Copyright(props: any) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
+            {'Copyright ï¿½ '}
             <Link color="inherit" href="https://mui.com/">
                 Peak Iron 1
             </Link>{' '}
@@ -45,8 +45,6 @@ function renderAlert(code: number) {
             return <Alert severity="error" sx={{ mt: 2 }} >Invalid username or password</Alert >;
         case 2:
             return <Alert severity="success" sx={{ mt: 2 }}>Login successfully!</Alert>; 
-       
-
     }
 
 }

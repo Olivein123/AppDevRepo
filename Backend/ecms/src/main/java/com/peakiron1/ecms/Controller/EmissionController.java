@@ -18,7 +18,7 @@ import com.peakiron1.ecms.Entity.EmissionEntity;
 import com.peakiron1.ecms.Service.EmissionService;
 
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/site")
 

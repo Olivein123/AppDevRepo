@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.peakiron1.ecms.Entity.VehicleEntity;
 import com.peakiron1.ecms.Service.VehicleService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/vehicle")
 public class VehicleController {

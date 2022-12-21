@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.peakiron1.ecms.Entity.BookingEntity;
 import com.peakiron1.ecms.Service.BookingService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
