@@ -1,22 +1,14 @@
 import { Alert, Button, CircularProgress, Divider, FormControl, Grid, TextField } from "@mui/material";
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { RestAPI } from "../../Services/restAPI";
 import axios from "axios";
 import SnackbarComp from "../Snackbar/SnackbarComp";
 
-
-
-
-interface State {
-    password: string;
-    showPassword: boolean;
-}
-
-
 export default function RegistrationInnerContext() {
-    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
+    const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, 
+        cancelBookingToSite, loading, error, target_user, sites, booking] = RestAPI(); 
 
-    const [sucess, setSuccess] = useState(false); 
+    const [success, setSuccess] = useState(false); 
     const [fname, setFirstname] = useState(""); 
     const [mname, setMiddlename] = useState(""); 
     const [lname, setLastname] = useState(""); 
@@ -39,6 +31,7 @@ export default function RegistrationInnerContext() {
     const [plateNumberClicked, setPlateNumberClicked] = useState(false);
     const [code, setCode] = useState(0); 
     const [open, setOpen] = useState(false);
+    const [submitted,setSubmitted] = useState(false);
 
     //Contact Number number verify
     const verifyNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,48 +56,56 @@ export default function RegistrationInnerContext() {
         setPassClicked(true)
         setModelClicked(true)
         setPlateNumberClicked(true)
-        if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
+        setSubmitted(true);
+        if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && 
+        license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
             newUser({
                 id: -1,
-                firstname: fname,
-                middlename: mname,
-                lastname: lname,
-                address: address,
-                contact_num: contact,
-                license_num: license,
-                username: user,
-                password: pass,
-                vehicles: [],
-                bookings: [],
-                sites: []
+                firstname: fname, middlename: mname, lastname: lname, address: address,
+                contact_num: contact, license_num: license, username: user, password: pass,
+                vehicles: [], bookings: [], sites: []
             })
             setSuccess(true);
             setCode(2);
             console.log(fname, mname, lname, address, contact, license, user, pass); 
-        }else {
+        } else {
             console.log("error");
             setCode(1);
             return <><div><Alert severity="error" >Fields are required!</Alert ></div></>
         }
-
     }
 
-    if (loading) return <CircularProgress />
-
-
+    if (loading) return <CircularProgress/>
 
     if (error !== "") {
-        return <><div>
+        return <div>
                     <Alert severity="error" >Error detected on code, check console!</Alert >
                     <Button sx={{m:2, display: 'flex'}} href="/register">Back</Button>
-                </div></>
+                </div>
     } else {
-        if (sucess !== false) {
-            return <><div>
+        if (success !== false) {
+            return <div>
                 <Alert severity="success">Account is created!</Alert> 
                 <Button sx={{m:2, display:'flex'}} href="/login">Login</Button>
-            </div></>
+            </div>
         }
+    }
+
+    interface TextfieldProps{
+        state: string,
+        id:string,
+        label:string,
+        key:string,
+        value:string,
+        stateSetter:(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    }
+
+    const TextFieldFunction = (props:TextfieldProps) =>{
+        return(
+             <TextField error = {props.state === "" && submitted} id={props.id} label={props.label}
+                type="text" variant="outlined" value={props.value} key={props.key}
+                onChange={props.stateSetter} />
+        )
     }
 
     return (
@@ -113,14 +114,14 @@ export default function RegistrationInnerContext() {
 
             <div className="registerInLine">
                     <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error = {user === "" && userClicked} id="username" label="Username" 
+                        <TextField error = {user === "" && submitted} id="username" label="Username" 
                         type="text" variant="outlined" value={user} key="user" 
                         onClick={()=> setUserClicked(true)}
                         onChange={(event) => setUsername(event.target.value)} />
                     </FormControl>
 
                     <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error = {pass === "" && passClicked} required id="password" label="Password" 
+                        <TextField error = {pass === "" && submitted} required id="password" label="Password" 
                         type="Password" variant="outlined" value={pass} key="pass" 
                         onClick={()=>setPassClicked(true)}
                         onChange={(event) => setPassword(event.target.value)} />
@@ -128,62 +129,65 @@ export default function RegistrationInnerContext() {
             </div>
             
             <div className="registerInLine">
-            <FormControl sx={{ ml:3, mb: 3}} variant="outlined">
-                        <TextField  error = {fname === "" && fnameClicked} id="firstname" label="First Name" 
-                        onClick={()=>setFnameClicked(true)}
-                        type="text" value={fname} variant="outlined" key="ftname" 
-                        onChange={(event) => setFirstname(event.target.value)} />
-            </FormControl>
-            <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField error = {mname === "" && mnameClicked} id="middlename" label="Middle Name" 
-                        onClick={()=>setMnameClicked(true)}
-                        type="text" value={mname} variant="outlined" key="mname"  
-                        onChange={(event) => setMiddlename(event.target.value)} />
-            </FormControl>
-            <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error = {lname === "" && lnameClicked} id="lastname" label="Last Name" 
-                        onClick={()=>setLnameClicked(true)}
-                        type="text" value={lname} variant="outlined" key="lname" 
-                        onChange={(event) => setLastname(event.target.value)} />
-            </FormControl>
+                <FormControl sx={{ ml:3, mb: 3}} variant="outlined">
+                    <TextField  error = {fname === "" && submitted} id="firstname" label="First Name" 
+                    onClick={()=>setFnameClicked(true)}
+                    type="text" value={fname} variant="outlined" key="ftname" 
+                    onChange={(event) => setFirstname(event.target.value)} />
+                </FormControl>
+
+                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
+                    <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
+                    onClick={()=>setMnameClicked(true)}
+                    type="text" value={mname} variant="outlined" key="mname"  
+                    onChange={(event) => setMiddlename(event.target.value)} />
+                </FormControl>
+
+                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
+                    <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
+                    onClick={()=>setLnameClicked(true)}
+                    type="text" value={lname} variant="outlined" key="lname" 
+                    onChange={(event) => setLastname(event.target.value)} />
+                </FormControl>
             </div>
 
             <div className="registerInLine">
-            <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField error={address === "" && addressClicked} id="address" label="Address"
-                        onClick={()=>setAddressClicked(true)} 
-                        type="text" value={address} variant="outlined" key="address" 
-                        onChange={(event) => setAddress(event.target.value)} />
-                    </FormControl>
-                </div>
+                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
+                    <TextField error={address === "" && submitted} id="address" label="Address"
+                    onClick={()=>setAddressClicked(true)} 
+                    type="text" value={address} variant="outlined" key="address" 
+                    onChange={(event) => setAddress(event.target.value)} />
+                </FormControl>
+            </div>
             
 
             <div className="registerInLine">
-            <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error ={contact === 63 && contactClicked} id="contactnumber" label="Contact Number" 
-                        onClick={()=>setContactClicked(true)}
-                        type="tel" value={contact} variant="outlined" key="contact" 
-                        onChange={verifyNumber} />
-            </FormControl>
-            <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                        <TextField error ={license == "" && licenseClicked} id="licensenumber" label="License Number" 
-                        onClick={()=>setLicenseClicked(true)}
-                        type="tel" value={license} variant="outlined" key="license" 
-                        onChange={(event) => setLicenseNumber(event.target.value)} />
-            </FormControl>
+                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
+                    <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
+                    onClick={()=>setContactClicked(true)}
+                    type="tel" value={contact} variant="outlined" key="contact" 
+                    onChange={verifyNumber} />
+                </FormControl>
 
-                </div>
+                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
+                    <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
+                    onClick={()=>setLicenseClicked(true)}
+                    type="tel" value={license} variant="outlined" key="license" 
+                    onChange={(event) => setLicenseNumber(event.target.value)} />
+                </FormControl>
+            </div>
 
                 <Divider sx={{ mt: 2, mb:2 }}>Vehicle Details</Divider>
             <div className="registerInLine">
                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField error={model == "" && modelClicked} id="model" label="Vehicle Model" 
+                  <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
                   onClick={()=>setModelClicked(true)}
                   type="tel" value={model} variant="outlined" key="model" 
                   onChange={(event) => setModel(event.target.value)} />
                </FormControl>
+
                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField error={platenumber == "" && plateNumberClicked} id="platenumber" label="Plate Number" 
+                  <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
                   onClick={()=>setPlateNumberClicked(true)}
                   type="tel" value={platenumber} variant="outlined" key="platenumber" 
                   onChange={(event) => setPlateNumber(event.target.value)} />
