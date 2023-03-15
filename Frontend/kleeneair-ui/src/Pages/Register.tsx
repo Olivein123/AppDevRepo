@@ -4,9 +4,9 @@ import UserRegistrationComp from "../Components/RegistrationComp/UserRegistratio
 
 export default function RegisterMenu() {
     return (
-        <>
-        <DefaultNavigationBar>
+            <>
+            <DefaultNavigationBar/>
             <UserRegistrationComp/>
-            </DefaultNavigationBar></>
+            </>
         );
 }
