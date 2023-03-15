@@ -1,10 +1,8 @@
 import { Alert, Button, CircularProgress, Divider, FormControl, Grid, TextField } from "@mui/material";
 import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { RestAPI } from "../../Services/restAPI";
-import axios from "axios";
 import CSS from 'csstype';
 import SnackbarComp from "../Snackbar/SnackbarComp";
-import { fontSize } from "@mui/system";
 
 export default function RegistrationInnerContext() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, 
@@ -20,17 +18,7 @@ export default function RegistrationInnerContext() {
     const [user, setUsername] = useState(""); 
     const [pass, setPassword] = useState(""); 
     const [model, setModel] = useState(""); 
-    const [platenumber, setPlateNumber] = useState(""); 
-    const [userClicked, setUserClicked] = useState(false);
-    const [fnameClicked, setFnameClicked] = useState(false);
-    const [mnameClicked, setMnameClicked] = useState(false);
-    const [lnameClicked, setLnameClicked] = useState(false);
-    const [addressClicked, setAddressClicked] = useState(false);
-    const [contactClicked, setContactClicked] = useState(false);
-    const [licenseClicked, setLicenseClicked] = useState(false);
-    const [passClicked, setPassClicked] = useState(false);
-    const [modelClicked, setModelClicked] = useState(false);
-    const [plateNumberClicked, setPlateNumberClicked] = useState(false);
+    const [platenumber, setPlateNumber] = useState("");
     const [code, setCode] = useState(0); 
     const [open, setOpen] = useState(false);
     const [submitted,setSubmitted] = useState(false);
@@ -47,17 +35,7 @@ export default function RegistrationInnerContext() {
 
     //onClick for registration submission
     const SubmitRegistration = () => {
-        setOpen(true)
-        setUserClicked(true)
-        setFnameClicked(true)
-        setMnameClicked(true)
-        setLnameClicked(true)
-        setAddressClicked(true)
-        setContactClicked(true)
-        setLicenseClicked(true)
-        setPassClicked(true)
-        setModelClicked(true)
-        setPlateNumberClicked(true)
+        setOpen(true);
         setSubmitted(true);
         if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && 
         license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
@@ -92,23 +70,6 @@ export default function RegistrationInnerContext() {
         }
     }
 
-    interface TextfieldProps{
-        state: string,
-        id:string,
-        label:string,
-        key:string,
-        value:string,
-        stateSetter:React.Dispatch<SetStateAction<string>>
-    }
-
-    function TextFieldFunction (props:TextfieldProps){
-        return(
-             <TextField error = {props.state === "" && submitted} id={props.id} label={props.label}
-                type="text" variant="outlined" value={props.value} key={props.key}
-                onChange={(event)=>props.stateSetter}/>
-        )
-    }
-
     const textFieldStyling:CSS.Properties ={ 
         width:"100%",
         fontSize:"4px"
@@ -130,8 +91,7 @@ export default function RegistrationInnerContext() {
         <div style={divFlexStyling}>
             <TextField error = {user === "" && submitted} id="username" label="Username" 
             type="text" variant="outlined" value={user} key="user" size="small"
-            InputProps={{ style: {fontSize:12} }}
-            onClick={()=> setUserClicked(true)} style={textFieldStyling} 
+            InputProps={{ style: {fontSize:12} }} style={textFieldStyling} 
             sx={{
                 marginRight:'10px',
                 marginTop:'10px'
@@ -140,8 +100,7 @@ export default function RegistrationInnerContext() {
       
             <TextField error = {pass === "" && submitted} required id="password" label="Password" 
             type="Password" variant="outlined" value={pass} key="pass" size="small"
-            InputProps={{ style: {fontSize:12} }}
-            onClick={()=>setPassClicked(true)} style={textFieldStyling}
+            InputProps={{ style: {fontSize:12} }} style={textFieldStyling}
             sx={{
                 marginLeft:'10px',
                 marginTop:'10px'
@@ -151,7 +110,7 @@ export default function RegistrationInnerContext() {
        
         <div style={divFlexStyling}>
             <TextField  error = {fname === "" && submitted} id="firstname" label="First Name" 
-            onClick={()=>setFnameClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="text" value={fname} variant="outlined" key="ftname" 
             sx={{
@@ -161,7 +120,7 @@ export default function RegistrationInnerContext() {
             onChange={(event) => setFirstname(event.target.value)} />
 
             <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
-            onClick={()=>setMnameClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="text" value={mname} variant="outlined" key="mname"
             sx={{
@@ -170,7 +129,7 @@ export default function RegistrationInnerContext() {
             onChange={(event) => setMiddlename(event.target.value)} />
 
             <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
-            onClick={()=>setLnameClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="text" value={lname} variant="outlined" key="lname" 
             sx={{
@@ -182,7 +141,7 @@ export default function RegistrationInnerContext() {
         
         <div style={divFlexStyling}>
             <TextField error={address === "" && submitted} id="address" label="Address"
-            onClick={()=>setAddressClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="text" value={address} variant="outlined" key="address" 
             sx={{ 
@@ -194,7 +153,7 @@ export default function RegistrationInnerContext() {
 
         <div style={divFlexStyling}>
             <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
-            onClick={()=>setContactClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={contact} variant="outlined" key="contact" 
             sx={{
@@ -204,7 +163,7 @@ export default function RegistrationInnerContext() {
             onChange={verifyNumber} />
         
             <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
-            onClick={()=>setLicenseClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={license} variant="outlined" key="license" 
             sx={{
@@ -218,7 +177,7 @@ export default function RegistrationInnerContext() {
             
         <div style={divFlexStyling}>
             <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
-            onClick={()=>setModelClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={model} variant="outlined" key="model" 
             sx={{
@@ -228,7 +187,7 @@ export default function RegistrationInnerContext() {
             onChange={(event) => setModel(event.target.value)} />
         
             <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
-            onClick={()=>setPlateNumberClicked(true)} style={textFieldStyling} size="small"
+            style={textFieldStyling} size="small"
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={platenumber} variant="outlined" key="platenumber" 
             sx={{
