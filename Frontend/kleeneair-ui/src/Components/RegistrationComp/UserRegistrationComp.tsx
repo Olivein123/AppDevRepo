@@ -5,18 +5,6 @@ import RegistrationInnerContext from './UserRegistrationInnerContext';
 import CSS from 'csstype';
 import { Container, Paper, Typography } from '@mui/material';
 
-
-
-const test: CSS.Properties = {
-    position:"absolute",
-    top:"50%",
-    left:"50%",
-    transform:"translate(-50%,50%)",
-    backgroundSize:"200px 200px",
-    borderRadius:"80% 20% 32% 68% / 58% 22% 78% 42%"
-
-}
-
 type ContainerProps = {
     headings: string, 
     children: React.ReactNode;
@@ -27,15 +15,16 @@ function IrregularContentContainer(props:ContainerProps) {
         padding: '35px' , margin:'40px',
         borderRadius:"5rem 0rem 0em 5rem/15rem",
         float:"right",
-        height:"400px",
-        width:"600px"
+        height:"390px",
+        width:"450px"
 
     }
 
     return (
         <Container className="paperEffect" maxWidth={false}>
-            <Typography align="left" variant="h6" sx={{ mt: 5, mb: -4, ml: 5 }}>{props.headings}</Typography>
+            
             <Paper elevation={5} style={paperStyle }>
+                <Typography variant="h6" sx={{ marginLeft:'20px', fontWeight:"bold"}}>{props.headings}</Typography>
                 {props.children}
             </Paper>
 
@@ -47,7 +36,7 @@ function IrregularContentContainer(props:ContainerProps) {
 
 export default function RegisterUser() {
     return (
-        <IrregularContentContainer headings="Registration Page">
+        <IrregularContentContainer headings="Registration">
                 <RegistrationInnerContext />           
         </IrregularContentContainer>
     );

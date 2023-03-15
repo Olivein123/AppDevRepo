@@ -2,7 +2,9 @@ import { Alert, Button, CircularProgress, Divider, FormControl, Grid, TextField 
 import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { RestAPI } from "../../Services/restAPI";
 import axios from "axios";
+import CSS from 'csstype';
 import SnackbarComp from "../Snackbar/SnackbarComp";
+import { fontSize } from "@mui/system";
 
 export default function RegistrationInnerContext() {
     const [newUser, sendRequest, newSite, newBookingSchedule, addSiteToUser, addBookingToSite, 
@@ -60,8 +62,7 @@ export default function RegistrationInnerContext() {
         if (fname !== "" && mname !== "" && lname !== "" && address !== "" && contact !== undefined && 
         license !== "" && user !== "" && pass !== "" && model !== "" && model !== "" && platenumber !== "") {
             newUser({
-                id: -1,
-                firstname: fname, middlename: mname, lastname: lname, address: address,
+                id: -1, firstname: fname, middlename: mname, lastname: lname, address: address,
                 contact_num: contact, license_num: license, username: user, password: pass,
                 vehicles: [], bookings: [], sites: []
             })
@@ -71,7 +72,7 @@ export default function RegistrationInnerContext() {
         } else {
             console.log("error");
             setCode(1);
-            return <><div><Alert severity="error" >Fields are required!</Alert ></div></>
+            return <div><Alert severity="error" >Fields are required!</Alert ></div>
         }
     }
 
@@ -97,111 +98,161 @@ export default function RegistrationInnerContext() {
         label:string,
         key:string,
         value:string,
-        stateSetter:(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+        stateSetter:React.Dispatch<SetStateAction<string>>
     }
 
-    const TextFieldFunction = (props:TextfieldProps) =>{
+    function TextFieldFunction (props:TextfieldProps){
         return(
              <TextField error = {props.state === "" && submitted} id={props.id} label={props.label}
                 type="text" variant="outlined" value={props.value} key={props.key}
-                onChange={props.stateSetter} />
+                onChange={(event)=>props.stateSetter}/>
         )
     }
 
+    const styling:CSS.Properties ={ 
+        width:"100%",
+        fontSize:"4px"
+    }
+
+    const resizeFont:CSS.Properties = {
+       fontSize:"10px"
+    }
+
+    const DivFlexStyling:CSS.Properties = { 
+        display: "flex",
+        margin:"5px"
+    }
+
+    const styling3:CSS.Properties = {
+        margin:'10px',
+        paddingLeft:"20px",
+    }
+
     return (
-        <FormControl className="centerDisplayForm">
-            <div>
+        <div style={styling3}>
+    
+        <div style={DivFlexStyling}>
+            <TextField error = {user === "" && submitted} id="username" label="Username" 
+            type="text" variant="outlined" value={user} key="user" size="small"
+            InputProps={{ style: {fontSize:12} }}
+            onClick={()=> setUserClicked(true)} style={styling} 
+            sx={{
+                marginRight:'10px',
+                marginTop:'10px'
+            }}
+            onChange={(event) => setUsername(event.target.value)} />
+      
+            <TextField error = {pass === "" && submitted} required id="password" label="Password" 
+            type="Password" variant="outlined" value={pass} key="pass" size="small"
+            InputProps={{ style: {fontSize:12} }}
+            onClick={()=>setPassClicked(true)} style={styling}
+            sx={{
+                marginLeft:'10px',
+                marginTop:'10px'
+            }}
+            onChange={(event) => setPassword(event.target.value)} />
+        </div>
+       
+        <div style={DivFlexStyling}>
+            <TextField  error = {fname === "" && submitted} id="firstname" label="First Name" 
+            onClick={()=>setFnameClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="text" value={fname} variant="outlined" key="ftname" 
+            sx={{
+                marginRight:'10px',
+                marginTop:"10px"
+            }}
+            onChange={(event) => setFirstname(event.target.value)} />
 
-            <div className="registerInLine">
-                    <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error = {user === "" && submitted} id="username" label="Username" 
-                        type="text" variant="outlined" value={user} key="user" 
-                        onClick={()=> setUserClicked(true)}
-                        onChange={(event) => setUsername(event.target.value)} />
-                    </FormControl>
+            <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
+            onClick={()=>setMnameClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="text" value={mname} variant="outlined" key="mname"
+            sx={{
+                marginTop:"10px"
+            }}
+            onChange={(event) => setMiddlename(event.target.value)} />
 
-                    <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                        <TextField error = {pass === "" && submitted} required id="password" label="Password" 
-                        type="Password" variant="outlined" value={pass} key="pass" 
-                        onClick={()=>setPassClicked(true)}
-                        onChange={(event) => setPassword(event.target.value)} />
-                    </FormControl>
-            </div>
+            <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
+            onClick={()=>setLnameClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="text" value={lname} variant="outlined" key="lname" 
+            sx={{
+                marginLeft:'10px',
+                marginTop:"10px"
+            }}
+            onChange={(event) => setLastname(event.target.value)} />
+        </div>
+        
+        <div style={DivFlexStyling}>
+            <TextField error={address === "" && submitted} id="address" label="Address"
+            onClick={()=>setAddressClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="text" value={address} variant="outlined" key="address" 
+            sx={{ 
+                marginTop:"10px"
+            }}
+            onChange={(event) => setAddress(event.target.value)} />
+        </div>
             
-            <div className="registerInLine">
-                <FormControl sx={{ ml:3, mb: 3}} variant="outlined">
-                    <TextField  error = {fname === "" && submitted} id="firstname" label="First Name" 
-                    onClick={()=>setFnameClicked(true)}
-                    type="text" value={fname} variant="outlined" key="ftname" 
-                    onChange={(event) => setFirstname(event.target.value)} />
-                </FormControl>
 
-                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                    <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
-                    onClick={()=>setMnameClicked(true)}
-                    type="text" value={mname} variant="outlined" key="mname"  
-                    onChange={(event) => setMiddlename(event.target.value)} />
-                </FormControl>
+        <div style={DivFlexStyling}>
+            <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
+            onClick={()=>setContactClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="tel" value={contact} variant="outlined" key="contact" 
+            sx={{
+                marginRight:'10px',
+                marginTop:'10px'
+            }}
+            onChange={verifyNumber} />
+        
+            <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
+            onClick={()=>setLicenseClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="tel" value={license} variant="outlined" key="license" 
+            sx={{
+                marginLeft:'10px',
+                marginTop:'10px'
+            }}
+            onChange={(event) => setLicenseNumber(event.target.value)} />
+        </div>
 
-                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                    <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
-                    onClick={()=>setLnameClicked(true)}
-                    type="text" value={lname} variant="outlined" key="lname" 
-                    onChange={(event) => setLastname(event.target.value)} />
-                </FormControl>
-            </div>
-
-            <div className="registerInLine">
-                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                    <TextField error={address === "" && submitted} id="address" label="Address"
-                    onClick={()=>setAddressClicked(true)} 
-                    type="text" value={address} variant="outlined" key="address" 
-                    onChange={(event) => setAddress(event.target.value)} />
-                </FormControl>
-            </div>
+            <Divider sx={{ mt: 2, mb:2, fontSize:"10px"}}>Vehicle Details</Divider>
             
-
-            <div className="registerInLine">
-                <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                    <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
-                    onClick={()=>setContactClicked(true)}
-                    type="tel" value={contact} variant="outlined" key="contact" 
-                    onChange={verifyNumber} />
-                </FormControl>
-
-                <FormControl sx={{ ml: 3, mb: 3}} variant="outlined">
-                    <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
-                    onClick={()=>setLicenseClicked(true)}
-                    type="tel" value={license} variant="outlined" key="license" 
-                    onChange={(event) => setLicenseNumber(event.target.value)} />
-                </FormControl>
-            </div>
-
-                <Divider sx={{ mt: 2, mb:2 }}>Vehicle Details</Divider>
-            <div className="registerInLine">
-               <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
-                  onClick={()=>setModelClicked(true)}
-                  type="tel" value={model} variant="outlined" key="model" 
-                  onChange={(event) => setModel(event.target.value)} />
-               </FormControl>
-
-               <FormControl sx={{ ml: 3, mb: 3 }} variant="outlined">
-                  <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
-                  onClick={()=>setPlateNumberClicked(true)}
-                  type="tel" value={platenumber} variant="outlined" key="platenumber" 
-                  onChange={(event) => setPlateNumber(event.target.value)} />
-               </FormControl>
-            </div>
+        <div style={DivFlexStyling}>
+            <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
+            onClick={()=>setModelClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="tel" value={model} variant="outlined" key="model" 
+            sx={{
+                marginRight:"10px",
+                marginBottom:"25px"
+            }}
+            onChange={(event) => setModel(event.target.value)} />
+        
+            <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
+            onClick={()=>setPlateNumberClicked(true)} style={styling} size="small"
+            InputProps={{ style: {fontSize:12} }}
+            type="tel" value={platenumber} variant="outlined" key="platenumber" 
+            sx={{
+                marginLeft:"10px",
+                marginBottom:"25px"
+            }}
+            onChange={(event) => setPlateNumber(event.target.value)} />
+        </div>
 
 
             <Grid container>
                 <Grid item>
-                        <Button sx={{ ml: 3, mb: 3, marginRight: 0 }} variant="contained" onClick={SubmitRegistration}>Sign Up</Button>
+                    <Button sx={{ ml: 3, mb: 3, marginRight: 0, transform:"scale(0.8)"}} variant="contained" 
+                    onClick={SubmitRegistration}>Sign Up</Button>
                 </Grid>
-                <Grid item sx={{ ml: 3, mt: -1,   fontSize: "15px" }}>
+                
+                <Grid item sx={{ ml: 2, mt: 0,   fontSize: "12px"}}>
                     <p>Already have an account? <a href="/login">Log in</a></p>
                 </Grid>
+
                 <SnackbarComp 
                 setOpen={setOpen}
                 open={open}
@@ -209,12 +260,9 @@ export default function RegistrationInnerContext() {
                 successMessage={'Register success!'} 
                 errorMessage={'Register failed!'}/>
             </Grid>
-            </div>
-            
-        </FormControl>
-        
-        
-        ); 
+
+        </div>
+    ); 
 }
 
 

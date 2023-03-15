@@ -71,3 +71,12 @@
     width: min(100%-15px, 840px);
     margin-inline: auto;
 }
+
+.MuiInputLabel-root {
+  font-size: 11px !important;
+  padding-bottom: 20px !important;
+}
+
+.MuiInput-root {
+  height: 45px !important;
+}
