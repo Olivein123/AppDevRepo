@@ -7,7 +7,10 @@ import Navigationbar from "../Components/NavigationBarComp/Navigationbar";
 
 function LandingPage() {
     return (
-        <><Navigationbar/><LandingSplash /></>
+        <>
+        <Navigationbar/>
+        <LandingSplash />
+        </>
        
        
     );

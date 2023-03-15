@@ -57,150 +57,176 @@ export default function RegistrationInnerContext() {
     if (loading) return <CircularProgress/>
 
     if (error !== "") {
-        return <div>
-                    <Alert severity="error" >Error detected on code, check console!</Alert >
-                    <Button sx={{m:2, display: 'flex'}} href="/register">Back</Button>
-                </div>
+        return(
+            <div>
+                <Alert severity="error" >Error detected on code, check console!</Alert >
+                <Button sx={{m:2, display: 'flex'}} href="/register">Back</Button>
+            </div>
+        ); 
     } else {
         if (success !== false) {
-            return <div>
-                <Alert severity="success">Account is created!</Alert> 
-                <Button sx={{m:2, display:'flex'}} href="/login">Login</Button>
-            </div>
+            return (
+                <div>
+                    <Alert severity="success">Account is created!</Alert> 
+                    <Button sx={{m:2, display:'flex'}} href="/login">Login</Button>
+                </div>
+            );
         }
     }
 
-    const textFieldStyling:CSS.Properties ={ 
-        width:"100%",
-        fontSize:"4px"
-    }
+    const textFieldStyling:CSS.Properties ={ width:"100%", fontSize:"4px" }
 
-    const divFlexStyling:CSS.Properties = { 
-        display: "flex",
-        margin:"5px"
-    }
+    const divFlexStyling:CSS.Properties = { display: "flex", margin:"5px" }
 
-    const divContainerStyling:CSS.Properties = {
-        margin:'10px',
-        paddingLeft:"20px",
-    }
+    const divContainerStyling:CSS.Properties = { margin:'10px', paddingLeft:"20px" }
 
     return (
         <div style={divContainerStyling}>
     
         <div style={divFlexStyling}>
+        
+            {/*Username Text Field*/}
             <TextField error = {user === "" && submitted} id="username" label="Username" 
-            type="text" variant="outlined" value={user} key="user" size="small"
+            type="text" variant="outlined" value={user} 
+            key="user" size="small"
             InputProps={{ style: {fontSize:12} }} style={textFieldStyling} 
             sx={{
                 marginRight:'10px',
                 marginTop:'10px'
             }}
             onChange={(event) => setUsername(event.target.value)} />
-      
+
+            {/*Password Text Field*/}
             <TextField error = {pass === "" && submitted} required id="password" label="Password" 
-            type="Password" variant="outlined" value={pass} key="pass" size="small"
+            type="Password" variant="outlined" value={pass} 
+            key="pass" size="small"
             InputProps={{ style: {fontSize:12} }} style={textFieldStyling}
             sx={{
                 marginLeft:'10px',
                 marginTop:'10px'
             }}
             onChange={(event) => setPassword(event.target.value)} />
+
         </div>
        
         <div style={divFlexStyling}>
-            <TextField  error = {fname === "" && submitted} id="firstname" label="First Name" 
-            style={textFieldStyling} size="small"
+
+            {/*First Name Text Field*/}
+            <TextField  error = {fname === "" && submitted} 
+            id="firstname" label="First Name" 
+            style={textFieldStyling} 
             InputProps={{ style: {fontSize:12} }}
-            type="text" value={fname} variant="outlined" key="ftname" 
+            type="text" value={fname} variant="outlined" 
+            key="ftname" size="small"
             sx={{
                 marginRight:'10px',
                 marginTop:"10px"
             }}
             onChange={(event) => setFirstname(event.target.value)} />
 
+            {/*Middle Name Text Field*/}
             <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling} 
             InputProps={{ style: {fontSize:12} }}
-            type="text" value={mname} variant="outlined" key="mname"
+            type="text" value={mname} variant="outlined" 
+            key="mname" size="small"
             sx={{
                 marginTop:"10px"
             }}
             onChange={(event) => setMiddlename(event.target.value)} />
 
+            {/*Last Name Text Field*/}
             <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="text" value={lname} variant="outlined" key="lname" 
+            type="text" value={lname} variant="outlined" 
+            key="lname" size="small" 
             sx={{
                 marginLeft:'10px',
                 marginTop:"10px"
             }}
             onChange={(event) => setLastname(event.target.value)} />
+
         </div>
         
         <div style={divFlexStyling}>
+            
+            {/*Address Text Field*/}
             <TextField error={address === "" && submitted} id="address" label="Address"
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="text" value={address} variant="outlined" key="address" 
+            type="text" value={address} variant="outlined" 
+            key="address" size="small"
             sx={{ 
                 marginTop:"10px"
             }}
             onChange={(event) => setAddress(event.target.value)} />
+
         </div>
             
 
         <div style={divFlexStyling}>
+            
+            {/*Contact Number Text Field*/}
             <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="tel" value={contact} variant="outlined" key="contact" 
+            type="tel" value={contact} variant="outlined" 
+            key="contact" size="small"
             sx={{
                 marginRight:'10px',
                 marginTop:'10px'
             }}
             onChange={verifyNumber} />
-        
+
+            {/*License Number Text Field*/}
             <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="tel" value={license} variant="outlined" key="license" 
+            type="tel" value={license} variant="outlined" 
+            key="license" size="small"
             sx={{
                 marginLeft:'10px',
                 marginTop:'10px'
             }}
             onChange={(event) => setLicenseNumber(event.target.value)} />
+
         </div>
 
-            <Divider sx={{ mt: 2, mb:2, fontSize:"10px"}}>Vehicle Details</Divider>
+        <Divider sx={{ mt: 2, mb:2, fontSize:"10px" }}>Vehicle Details</Divider>
             
         <div style={divFlexStyling}>
+            
+            {/*Vehicle Model Text Field*/}
             <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="tel" value={model} variant="outlined" key="model" 
+            type="tel" value={model} variant="outlined" 
+            key="model" size="small"
             sx={{
                 marginRight:"10px",
                 marginBottom:"25px"
             }}
             onChange={(event) => setModel(event.target.value)} />
-        
+
+            {/*Plate Number Text Field*/}
             <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
-            style={textFieldStyling} size="small"
+            style={textFieldStyling}
             InputProps={{ style: {fontSize:12} }}
-            type="tel" value={platenumber} variant="outlined" key="platenumber" 
+            type="tel" value={platenumber} variant="outlined" 
+            key="platenumber" size="small"
             sx={{
                 marginLeft:"10px",
                 marginBottom:"25px"
             }}
             onChange={(event) => setPlateNumber(event.target.value)} />
-        </div>
 
+        </div>
 
             <Grid container>
                 <Grid item>
-                    <Button sx={{ ml: 3, mb: 3, marginRight: 0, transform:"scale(0.8)"}} variant="contained" 
+                    <Button sx={{ ml: 3, mb: 3, marginRight: 0, transform:"scale(0.8)"}} 
+                    variant="contained" 
                     onClick={SubmitRegistration}>Sign Up</Button>
                 </Grid>
                 
