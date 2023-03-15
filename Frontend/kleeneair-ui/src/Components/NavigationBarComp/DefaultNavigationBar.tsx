@@ -6,14 +6,10 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { useState } from "react";
 
 
-type defaultNavBarProps = {
-    children: React.ReactNode; 
-    }
-
 const pages = ['Home', 'Services', 'Contact Us'];
 
 
-export default function Navigationbar(props: defaultNavBarProps) {
+export default function Navigationbar() {
 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -54,7 +50,6 @@ export default function Navigationbar(props: defaultNavBarProps) {
 
 
         <><Container>
-            {props.children}
         </Container>
             </></>
          
