@@ -18,7 +18,7 @@ const divStyling:CSS.Properties = {
 const sectionStyle = {
     height: "100vh", 
     backgroundImage:
-        "url('./Images/splashscreen1.png') ",
+        "url('./Images/LalaMove-Jeepney.jpg') ",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover", 
 };
@@ -56,9 +56,9 @@ export default function RegisterUser() {
                 <Grid item xs={6}>
                     <div style={divStyling}>
                     <img src="./Images/logo.png" style={{ height: 150, width: 150 }} />
-                    <Typography variant="h6" sx={{fontWeight:"bold"}} noWrap component="div">
+                    <Typography variant="h6" sx={{fontWeight:"bold", color:"#FFFFFF"}} noWrap component="div">
                         Join Us
-                        <Typography variant="subtitle1" sx={{ mb: 2, mt: -1 }}>
+                        <Typography variant="subtitle1" sx={{ mb: 2, mt: -1, color:"#FFFFFF"}}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                         </Typography>
                     </Typography>

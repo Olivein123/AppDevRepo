@@ -87,8 +87,9 @@ export default function RegistrationInnerContext() {
         
             {/*Username Text Field*/}
             <TextField error = {user === "" && submitted} id="username" label="Username" 
-            type="text" variant="outlined" value={user} 
-            key="user" size="small"
+            type="text" variant="outlined" value={user} className="MuiInputLabel-root-test"
+            key="user" size="small" 
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }} style={textFieldStyling} 
             sx={{
                 marginRight:'10px',
@@ -100,6 +101,7 @@ export default function RegistrationInnerContext() {
             <TextField error = {pass === "" && submitted} required id="password" label="Password" 
             type="Password" variant="outlined" value={pass} 
             key="pass" size="small"
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }} style={textFieldStyling}
             sx={{
                 marginLeft:'10px',
@@ -115,6 +117,7 @@ export default function RegistrationInnerContext() {
             <TextField  error = {fname === "" && submitted} 
             id="firstname" label="First Name" 
             style={textFieldStyling} 
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="text" value={fname} variant="outlined" 
             key="ftname" size="small"
@@ -127,6 +130,7 @@ export default function RegistrationInnerContext() {
             {/*Middle Name Text Field*/}
             <TextField error = {mname === "" && submitted} id="middlename" label="Middle Name" 
             style={textFieldStyling} 
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="text" value={mname} variant="outlined" 
             key="mname" size="small"
@@ -138,6 +142,7 @@ export default function RegistrationInnerContext() {
             {/*Last Name Text Field*/}
             <TextField error = {lname === "" && submitted} id="lastname" label="Last Name" 
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="text" value={lname} variant="outlined" 
             key="lname" size="small" 
@@ -154,6 +159,7 @@ export default function RegistrationInnerContext() {
             {/*Address Text Field*/}
             <TextField error={address === "" && submitted} id="address" label="Address"
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="text" value={address} variant="outlined" 
             key="address" size="small"
@@ -170,6 +176,7 @@ export default function RegistrationInnerContext() {
             {/*Contact Number Text Field*/}
             <TextField error ={contact === 63 && submitted} id="contactnumber" label="Contact Number" 
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={contact} variant="outlined" 
             key="contact" size="small"
@@ -182,6 +189,7 @@ export default function RegistrationInnerContext() {
             {/*License Number Text Field*/}
             <TextField error ={license == "" && submitted} id="licensenumber" label="License Number" 
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={license} variant="outlined" 
             key="license" size="small"
@@ -200,6 +208,7 @@ export default function RegistrationInnerContext() {
             {/*Vehicle Model Text Field*/}
             <TextField error={model == "" && submitted} id="model" label="Vehicle Model" 
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={model} variant="outlined" 
             key="model" size="small"
@@ -212,6 +221,7 @@ export default function RegistrationInnerContext() {
             {/*Plate Number Text Field*/}
             <TextField error={platenumber == "" && submitted} id="platenumber" label="Plate Number" 
             style={textFieldStyling}
+            InputLabelProps={{ style: {fontSize:11} }}
             InputProps={{ style: {fontSize:12} }}
             type="tel" value={platenumber} variant="outlined" 
             key="platenumber" size="small"
